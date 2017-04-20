@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/nic.iml" filepath="$PROJECT_DIR$/.idea/nic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nic.iml" filepath="$PROJECT_DIR$/nic.iml" />
     </modules>
   </component>
 </project>
