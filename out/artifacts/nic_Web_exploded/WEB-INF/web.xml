@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <!-- netviewStart============================================================================================= -->
+    <servlet>
+        <servlet-name>netview</servlet-name>
+        <servlet-class>netviewWeb.NetviewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>netview</servlet-name>
+        <url-pattern>/netview</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>netviewJson</servlet-name>
+        <servlet-class>netviewWeb.NetviewJsonServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>netviewJson</servlet-name>
+        <url-pattern>/netviewjson</url-pattern>
+    </servlet-mapping>
+
+    <!-- netviewEnd============================================================================================= -->
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>

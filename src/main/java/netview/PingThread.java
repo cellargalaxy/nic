@@ -5,41 +5,42 @@ import java.util.LinkedList;
 /**
  * Created by cellargalaxy on 2017/4/20.
  */
-public class PingThread implements Runnable{
+public class PingThread implements Runnable {
 	private boolean run;
-	private LinkedList<Host> hosts;
+	private Netview netview;
 	private int waitTime;
+	private String coding;
 	
-	public static void main(String[] args) {
-		LinkedList<Host> hosts=new LinkedList<Host>();
-		hosts.add(new Host("gbk","202","202.116.150.40",3));
-		hosts.add(new Host("gbk","222","10.31.108.222",3));
-		hosts.add(new Host("gbk","DNS","114.114.114.114",3));
-		hosts.add(new Host("gbk","百度","baidu.com",3));
-		PingThread pingThread=new PingThread(hosts,1000);
-		new Thread(pingThread,"ping线程").start();
-	}
 	
-	public PingThread(LinkedList<Host> hosts, int waitTime) {
-		this.hosts = hosts;
+	public PingThread(Netview netview, int waitTime, String coding) {
+		this.netview = netview;
 		this.waitTime = waitTime;
-		run=true;
+		this.coding = coding;
+		run = true;
 	}
 	
-	private void pingAllHosts(){
+	private void pingAllHosts() throws InterruptedException {
 		while (run) {
-			for (Host host : hosts) {
-				host.ping();
-				if (!run) break;
+			String[] addresses = netview.createAddresses();
+			for (String address : addresses) {
+				System.out.println("ping:" + address);
+				netview.addPingResult(address, new PingResult(CMD.ping(address, coding)));
+				if (!run) return;
 			}
+			Thread.sleep(waitTime);
 		}
 	}
 	
-	public void stop(){
-		run=false;
+	public void stop() {
+		run = false;
 	}
 	
 	public void run() {
-		pingAllHosts();
+		try {
+			pingAllHosts();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			stop();
+		}
 	}
 }

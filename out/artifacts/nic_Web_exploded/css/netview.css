@@ -1,0 +1,25 @@
+body {
+    background-image:url('/nic/image/background.jpg');
+    background-repeat:repeat-x;
+}
+table{
+    text-align:center;
+    /*width:100%;*/
+}
+
+.connTr{
+    background-color:lightgreen;
+}
+.notConnTr{
+    background-color:lightcoral;
+}
+.connDelay{
+    float:right;
+    margin:5px;
+    background-color:lawngreen;
+}
+.notConnDelay{
+    float:right;
+    margin:5px;
+    background-color:orangered;
+}

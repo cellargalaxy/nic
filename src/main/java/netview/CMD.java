@@ -11,26 +11,30 @@ import java.io.InputStreamReader;
 public class CMD {
 	
 	
-	
-	public static String ping(String address,String coding) {
-		return cmd("ping "+address,coding);
+	public static String ping(String address, String coding) {
+		return cmd("ping " + address, coding);
 	}
-	private static String cmd(String cmd,String coding){
-		Process process=null;
-		BufferedReader reader=null;
+	
+	private static String cmd(String cmd, String coding) {
+		Process process = null;
+		BufferedReader reader = null;
 		try {
-			process= Runtime.getRuntime().exec(cmd);
-			reader=new BufferedReader(new InputStreamReader(process.getInputStream(),coding));
-			String string="";
+			process = Runtime.getRuntime().exec(cmd);
+			reader = new BufferedReader(new InputStreamReader(process.getInputStream(), coding));
+			String string = "";
 			String s;
-			while ((s = reader.readLine()) != null) string+=s+"\r\n";
+			while ((s = reader.readLine()) != null) string += s + "\r\n";
 			return string;
-		}catch (IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
-		}finally {
-			try { if (reader!=null) reader.close(); }catch (IOException e){ e.printStackTrace(); }
-			if (process!=null) process.destroy();
+		} finally {
+			try {
+				if (reader != null) reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if (process != null) process.destroy();
 		}
 	}
 }

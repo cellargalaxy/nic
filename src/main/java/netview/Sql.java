@@ -1,64 +1,105 @@
 package netview;
 
+import jdk.nashorn.internal.scripts.JD;
+
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.Date;
 
 /**
  * Created by cellargalaxy on 2017/4/20.
  */
 public class Sql {
-	private Connection connection;
+	private static final String ipTableName="ipaddress2";
 	
-	public Sql(String user,String password) throws ClassNotFoundException, SQLException {
-		String url = "jdbc:mysql://202.116.150.40:3306/netview?user="+user+"&password="+password+"&useUnicode=true&characterEncoding=UTF8";
-		Class.forName("com.mysql.jdbc.Driver");
-		connection = DriverManager.getConnection(url);
+	
+	/**
+	 * 添加一个host
+	 */
+	protected static int addAddress(Host host) {
+		Connection connection = null;
+		try {
+			connection = JDBCMethod.createConnection();
+			connection.setAutoCommit(false);
+			String sql = "insert "+ipTableName+" (Building,floor,name,address,addDate) value(?,?,?,?,?)";
+			int i = JDBCMethod.update(connection, sql, host.getBuilding(), host.getFloor(), host.getName(), host.getAddress(), new Date());
+			if (i > -1) connection.commit();
+			else connection.rollback();
+			return i;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			return -1;
+		} finally {
+			if (connection != null) try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
-	
+	/**
+	 * 删除某个host
+	 */
+	protected static int delleteAddress(String address) {
+		Connection connection = null;
+		try {
+			connection = JDBCMethod.createConnection();
+			connection.setAutoCommit(false);
+			String sql = "delete from "+ipTableName+" where address=?";
+			int i = JDBCMethod.update(connection, sql, address);
+			if (i > -1) connection.commit();
+			else connection.rollback();
+			return i;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			return -1;
+		} finally {
+			if (connection != null) try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	/**
 	 * 读取数据库全部的host
 	 */
-	//查表列别名
-	public static String[] getColumnLabels(ResultSet resultSet) {
+	protected static LinkedList<Host> findAllHosts(int times) {
+		Connection connection = null;
 		try {
-			ResultSetMetaData resultSetMetaData=resultSet.getMetaData();
-			String[] columnLabels=new String[resultSetMetaData.getColumnCount()];
-			for (int i = 0; i < columnLabels.length; i++) {
-				columnLabels[i]=resultSetMetaData.getColumnLabel(i+1);
+			connection = JDBCMethod.createConnection();
+			String sql = "select * from "+ipTableName;
+			Map<String, Object>[] maps = JDBCMethod.selectTable(connection, sql);
+			LinkedList<Host> hosts = new LinkedList<Host>();
+			if (maps != null) {
+				for (Map<String, Object> map : maps) {
+					hosts.add(new Host((String) map.get("building"), new Integer( map.get("floor").toString()), (String) map.get("name"), (String) map.get("address"), times));
+				}
 			}
-			return columnLabels;
-		} catch (Exception e) {
+			return hosts;
+		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
+		} finally {
+			if (connection != null) try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		return null;
 	}
 	
 	
-	public static void main(String[] args) throws Exception{
-//		Connection connection=new Sql("root","root").connection;
-//		String sql="select address,host from ipaddress";
-//		PreparedStatement preparedStatement=connection.prepareStatement(sql);
-//		ResultSet resultSet=preparedStatement.executeQuery();
-//		Map<String,Object>[] maps;
-//		resultSet.last();
-//		maps=new Map[resultSet.getRow()];
-//		resultSet.beforeFirst();
-//		int num=0;
-//		String[] columnNames=getColumnLabels(resultSet);/////////////////////////////////////////////////
-//		while (resultSet.next()) {
-//			maps[num]=new HashMap<String, Object>();
-//			for(String columnName:columnNames){
-//				maps[num].put(columnName, resultSet.getObject(columnName));
-//			}
-//			num++;
-//		}
-//		for (Map<String, Object> map : maps) {
-//			System.out.println(map);
-//		}
-		
-		
-	}
 }

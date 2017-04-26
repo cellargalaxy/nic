@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
  * Created by cellargalaxy on 2017/4/20.
  */
 public class PingResult {
-	private static final Pattern lostPattern=Pattern.compile("\\(\\d+%");
-	private static final Pattern delayPattern=Pattern.compile("\\d+ms$");
+	private static final Pattern lostPattern = Pattern.compile("\\(\\d+%");
+	private static final Pattern delayPattern = Pattern.compile("\\d+ms$");
 	
 	private Date date;
 	private int lost;
@@ -19,19 +19,19 @@ public class PingResult {
 	}
 	
 	public PingResult(String pingResult) {
-		lost=-1;
-		delay=-1;
-		date=new Date();
-		if (pingResult!=null) {
-			Matcher lostMatcher=lostPattern.matcher(pingResult);
-			Matcher delayMatcher=delayPattern.matcher(pingResult);
+		lost = -1;
+		delay = -1;
+		date = new Date();
+		if (pingResult != null) {
+			Matcher lostMatcher = lostPattern.matcher(pingResult);
+			Matcher delayMatcher = delayPattern.matcher(pingResult);
 			if (lostMatcher.find()) {
-				String s=lostMatcher.group();
-				lost=new Integer(s.substring(1,s.length()-1));
+				String s = lostMatcher.group();
+				lost = new Integer(s.substring(1, s.length() - 1));
 			}
 			if (delayMatcher.find()) {
-				String s=delayMatcher.group();
-				delay=new Integer(s.substring(0,s.length()-2));
+				String s = delayMatcher.group();
+				delay = new Integer(s.substring(0, s.length() - 2));
 			}
 		}
 	}
