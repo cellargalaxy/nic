@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="js/netview.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/netview.css">
 	<script type="text/javascript">
-		setInterval("reload()",100000);
+		setInterval("reload()",60000);
 	</script>
 </head>
 <body >

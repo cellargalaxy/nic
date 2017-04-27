@@ -15,6 +15,7 @@ public class PingResult {
 	private int lost;
 	private int delay;
 	
+	
 	public PingResult() {
 	}
 	
@@ -23,15 +24,18 @@ public class PingResult {
 		delay = -1;
 		date = new Date();
 		if (pingResult != null) {
+			pingResult=pingResult.trim();
 			Matcher lostMatcher = lostPattern.matcher(pingResult);
 			Matcher delayMatcher = delayPattern.matcher(pingResult);
 			if (lostMatcher.find()) {
 				String s = lostMatcher.group();
-				lost = new Integer(s.substring(1, s.length() - 1));
+				s = s.substring(1, s.length() - 1);
+				lost = new Integer(s);
 			}
 			if (delayMatcher.find()) {
 				String s = delayMatcher.group();
-				delay = new Integer(s.substring(0, s.length() - 2));
+				s = s.substring(0, s.length() - 2);
+				delay = new Integer(s);
 			}
 		}
 	}

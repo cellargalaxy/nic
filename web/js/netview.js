@@ -53,12 +53,12 @@ function addHost() {
 		success: function (data) {
 			if(data.result){
 				alert("成功添加："+data.ip);
+				window.location.href="/nic/netview";
 			}else{
 				alert("添加失败："+data.ip);
 			}
 		}
 	})
-	reload();
 }
 function deleteHost(address) {
 	if(address==null||address==""){
@@ -87,7 +87,6 @@ function deleteHost(address) {
 			}
 		})
 	}
-	reload();
 }
 
 

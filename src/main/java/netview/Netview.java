@@ -21,9 +21,10 @@ public class Netview {
 	public Netview() {
 		hosts = Sql.findAllHosts(Configuration.getTimes());
 		pingThread = new PingThread(this, Configuration.getWaitTime(), Configuration.getConding());
+	}
+	public void start(){
 		new Thread(pingThread, "ping线程").start();
 	}
-	
 	public synchronized boolean addHost(String building, int floor, String name, String address) {
 		Host host = new Host(building, floor, name, address, Configuration.getTimes());
 		int i = Sql.addAddress(host);

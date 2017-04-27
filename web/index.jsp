@@ -8,10 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>广工龙洞网络中心</title>
   </head>
   <body>
-  <h2>qqqqqq</h2>
-  <h2>${text}</h2>
+  <h4>${error}</h4>
+  <form action="/nic/" method="post" >
+    密码：<input type="password" name="pw" required>
+    <input type="submit" value="登录">
+  </form>
   </body>
 </html>

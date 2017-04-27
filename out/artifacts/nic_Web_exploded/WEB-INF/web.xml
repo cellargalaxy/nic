@@ -3,26 +3,55 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <!-- netviewStart============================================================================================= -->
+    <!-- netviewListenerStart============================================================================================= -->
+    <listener>
+        <listener-class>netviewWeb.NetviewListener</listener-class>
+    </listener>
+    <!-- netviewListenerStart============================================================================================= -->
+
+
+    <!-- loginFilterStart=========================================================================== -->
+    <filter>
+        <filter-name>loginFilter</filter-name>
+        <filter-class>nicWeb.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>loginFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- loginFilterEnf=========================================================================== -->
+
+    <!-- loginServletStrat============================================================================================== -->
+        <servlet>
+            <servlet-name>loginServlet</servlet-name>
+            <servlet-class>nicWeb.LoginServlet</servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>loginServlet</servlet-name>
+            <url-pattern></url-pattern>
+        </servlet-mapping>
+    <!-- loginServletEnd============================================================================================== -->
+
+    <!-- netviewServletStart============================================================================================= -->
     <servlet>
-        <servlet-name>netview</servlet-name>
+        <servlet-name>netviewServlet</servlet-name>
         <servlet-class>netviewWeb.NetviewServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>netview</servlet-name>
+        <servlet-name>netviewServlet</servlet-name>
         <url-pattern>/netview</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>netviewJson</servlet-name>
+        <servlet-name>netviewJsonServlet</servlet-name>
         <servlet-class>netviewWeb.NetviewJsonServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>netviewJson</servlet-name>
+        <servlet-name>netviewJsonServlet</servlet-name>
         <url-pattern>/netviewjson</url-pattern>
     </servlet-mapping>
 
-    <!-- netviewEnd============================================================================================= -->
+    <!-- netviewServletEnd============================================================================================= -->
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

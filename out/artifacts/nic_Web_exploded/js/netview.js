@@ -39,7 +39,7 @@ function addHost() {
 		return;
 	}
 	$.ajax({
-		url: '/netviewjson',
+		url: '/nic/netviewjson',
 		type: 'get',
 		cache: false,
 		async:false,
@@ -53,12 +53,12 @@ function addHost() {
 		success: function (data) {
 			if(data.result){
 				alert("成功添加："+data.ip);
+				window.location.href="/nic/netview";
 			}else{
 				alert("添加失败："+data.ip);
 			}
 		}
 	})
-	reload();
 }
 function deleteHost(address) {
 	if(address==null||address==""){
@@ -67,7 +67,7 @@ function deleteHost(address) {
 	}
 	if (confirm("确认删除?:"+address)){
 		$.ajax({
-			url: '/netviewjson',
+			url: '/nic/netviewjson',
 			type: 'post',
 			cache: false,
 			async:false,
@@ -87,7 +87,6 @@ function deleteHost(address) {
 			}
 		})
 	}
-	reload();
 }
 
 
