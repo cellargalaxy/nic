@@ -1,7 +1,13 @@
 package netview;
 
-import jdk.nashorn.internal.scripts.JD;
+import com.alibaba.druid.pool.DruidDataSourceFactory;
+import org.apache.commons.beanutils.BeanUtils;
+import util.BeanMapJson;
+import util.JDBCMethod;
 
+import javax.sql.DataSource;
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
@@ -10,35 +16,61 @@ import java.util.Date;
  * Created by cellargalaxy on 2017/4/20.
  */
 public class Sql {
-	private static final String ipTableName="ipaddress2";
+	private static final String ipTableName = Configuration.getIpTableName();
 	
+	private static DataSource dataSource;
+	
+	static {
+		try {
+			Properties properties = new Properties();
+			File confFile = new File(new File(JDBCMethod.class.getResource("").getPath()).getParentFile().getAbsolutePath() + "/netviewSql.properties");
+//			System.out.println(confFile.getAbsolutePath());
+			properties.load(new FileInputStream(confFile));
+			dataSource = DruidDataSourceFactory.createDataSource(properties);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static Connection createConnection() throws SQLException {
+		if (dataSource != null) {
+			return dataSource.getConnection();
+		} else {
+			return null;
+		}
+	}
 	
 	/**
 	 * 添加一个host
 	 */
-	protected static int addAddress(Host host) {
+	protected static boolean addAddress(Host host) {
 		Connection connection = null;
 		try {
-			connection = JDBCMethod.createConnection();
+			connection = createConnection();
 			connection.setAutoCommit(false);
-			String sql = "insert "+ipTableName+" (Building,floor,name,address,addDate) value(?,?,?,?,?)";
-			int i = JDBCMethod.update(connection, sql, host.getBuilding(), host.getFloor(), host.getName(), host.getAddress(), new Date());
-			if (i > -1) connection.commit();
-			else connection.rollback();
-			return i;
-		} catch (SQLException e) {
+			Map map = BeanMapJson.beanToMap(host);
+			map.put("addDate", new Date());
+			int i = JDBCMethod.insert(connection, ipTableName, map);
+			if (i > 0) {
+				connection.commit();
+				return true;
+			} else {
+				connection.rollback();
+				return false;
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
-			try {
+			if (connection != null) try {
 				connection.rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			return -1;
+			return false;
 		} finally {
 			if (connection != null) try {
 				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
 			}
 		}
 	}
@@ -46,29 +78,32 @@ public class Sql {
 	/**
 	 * 删除某个host
 	 */
-	protected static int delleteAddress(String address) {
+	protected static boolean delleteAddress(String address) {
 		Connection connection = null;
 		try {
-			connection = JDBCMethod.createConnection();
+			connection = createConnection();
 			connection.setAutoCommit(false);
-			String sql = "delete from "+ipTableName+" where address=?";
-			int i = JDBCMethod.update(connection, sql, address);
-			if (i > -1) connection.commit();
-			else connection.rollback();
-			return i;
+			int i = JDBCMethod.delete(connection, ipTableName, "address", address);
+			if (i > -1) {
+				connection.commit();
+				return true;
+			} else {
+				connection.rollback();
+				return false;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			try {
+			if (connection != null) try {
 				connection.rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			return -1;
+			return false;
 		} finally {
 			if (connection != null) try {
 				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
 			}
 		}
 	}
@@ -79,24 +114,26 @@ public class Sql {
 	protected static LinkedList<Host> findAllHosts(int times) {
 		Connection connection = null;
 		try {
-			connection = JDBCMethod.createConnection();
-			String sql = "select * from "+ipTableName;
+			connection = createConnection();
+			String sql = "select * from " + ipTableName;
 			Map<String, Object>[] maps = JDBCMethod.selectTable(connection, sql);
 			LinkedList<Host> hosts = new LinkedList<Host>();
 			if (maps != null) {
 				for (Map<String, Object> map : maps) {
-					hosts.add(new Host((String) map.get("building"), new Integer( map.get("floor").toString()), (String) map.get("name"), (String) map.get("address"), times));
+					Host host = new Host(times);
+					BeanUtils.populate(host, map);
+					hosts.add(host);
 				}
 			}
 			return hosts;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		} finally {
 			if (connection != null) try {
 				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
 			}
 		}
 	}

@@ -16,6 +16,7 @@ public class Host {
 	private boolean conn;
 	private Date date;
 	
+	
 	public Host(String building, int floor, String name, String address, int times) {
 		this.building = building;
 		this.floor = floor;
@@ -28,26 +29,45 @@ public class Host {
 		date = new Date();
 	}
 	
-	private void check() {
-		for (PingResult result : results) {
-			if (result.getDelay() >= 0) {
-				if (!conn) {
-					conn = true;
-					date = result.getDate();
-				}
-				return;
-			}
-		}
+	public Host(int times) {
+		this.times = times;
+		results = new LinkedList<PingResult>();
+		for (int i = 0; i < times; i++) results.add(new PingResult());
+		conn = true;
+		date = new Date();
+	}
+	
+	/**
+	 * @return true表示连通状态改变了，否则没改变
+	 */
+	private boolean check() {
 		if (conn) {
+			for (PingResult result : results) {
+				if (result.isConn()) {
+					return false;
+				}
+			}
 			conn = false;
 			date = results.getFirst().getDate();
+			return true;
+		} else {
+			for (PingResult result : results) {
+				if (result.isConn()) {
+					conn = true;
+					date = result.getDate();
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 	
 	protected void addResult(PingResult result) {
 		results.poll();
 		results.add(result);
-		check();
+		if (check()) {
+			Netview.getNetview().addHappen(this);
+		}
 	}
 	
 	public String getBuilding() {
@@ -82,35 +102,27 @@ public class Host {
 		this.address = address;
 	}
 	
-	public int getTimes() {
-		return times;
-	}
-	
-	public void setTimes(int times) {
-		this.times = times;
-	}
-	
-	public LinkedList<PingResult> getResults() {
+	public LinkedList<PingResult> GetResults() {
 		return results;
 	}
 	
-	public void setResults(LinkedList<PingResult> results) {
+	public void SetResults(LinkedList<PingResult> results) {
 		this.results = results;
 	}
 	
-	public boolean isConn() {
+	public boolean IsConn() {
 		return conn;
 	}
 	
-	public void setConn(boolean conn) {
+	public void SetConn(boolean conn) {
 		this.conn = conn;
 	}
 	
-	public Date getDate() {
+	public Date GetDate() {
 		return date;
 	}
 	
-	public void setDate(Date date) {
+	public void SetDate(Date date) {
 		this.date = date;
 	}
 	

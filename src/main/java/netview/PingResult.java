@@ -8,36 +8,19 @@ import java.util.regex.Pattern;
  * Created by cellargalaxy on 2017/4/20.
  */
 public class PingResult {
-	private static final Pattern lostPattern = Pattern.compile("\\(\\d+%");
-	private static final Pattern delayPattern = Pattern.compile("\\d+ms$");
 	
 	private Date date;
-	private int lost;
-	private int delay;
+	private boolean isConn;
 	
 	
 	public PingResult() {
+		date = new Date();
+		isConn = true;
 	}
 	
-	public PingResult(String pingResult) {
-		lost = -1;
-		delay = -1;
+	public PingResult(boolean isConn) {
+		this.isConn = isConn;
 		date = new Date();
-		if (pingResult != null) {
-			pingResult=pingResult.trim();
-			Matcher lostMatcher = lostPattern.matcher(pingResult);
-			Matcher delayMatcher = delayPattern.matcher(pingResult);
-			if (lostMatcher.find()) {
-				String s = lostMatcher.group();
-				s = s.substring(1, s.length() - 1);
-				lost = new Integer(s);
-			}
-			if (delayMatcher.find()) {
-				String s = delayMatcher.group();
-				s = s.substring(0, s.length() - 2);
-				delay = new Integer(s);
-			}
-		}
 	}
 	
 	public Date getDate() {
@@ -48,28 +31,20 @@ public class PingResult {
 		this.date = date;
 	}
 	
-	public int getLost() {
-		return lost;
+	public boolean isConn() {
+		return isConn;
 	}
 	
-	public void setLost(int lost) {
-		this.lost = lost;
-	}
-	
-	public int getDelay() {
-		return delay;
-	}
-	
-	public void setDelay(int delay) {
-		this.delay = delay;
+	public void setConn(boolean conn) {
+		isConn = conn;
 	}
 	
 	@Override
-	public String toString() {
+	public String
+	toString() {
 		return "PingResult{" +
 				"date=" + date +
-				", lost=" + lost +
-				", delay=" + delay +
+				", isConn=" + isConn +
 				'}';
 	}
 }

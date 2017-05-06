@@ -1,0 +1,20 @@
+body {
+    background-image: url('/nic/image/background.jpg');
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+table {
+    text-align: center;
+    width: 100%;
+}
+
+tr {
+    background-color: lightgreen;
+}
+
+td {
+
+}

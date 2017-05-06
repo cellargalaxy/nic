@@ -16,30 +16,25 @@ import java.util.List;
  * Created by cellargalaxy on 2017/4/24.
  */
 public class NetviewServlet extends HttpServlet {
+	private String jsp = "/jsp/netview.jsp";
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("text/plain;charset=utf-8");
-		req.setCharacterEncoding("utf-8");
-		
 		Netview netview = Netview.getNetview();
-		HttpSession session = req.getSession();
-		String demandKsy = req.getParameter("demandKsy");
-		if (demandKsy == null) {
-			LinkedList<Building> buildings = netview.createHostMap();
-			buildings.add(0, netview.createOutTimeHostMap());
-			session.setAttribute("buildings", buildings);
+		String demandKey = req.getParameter("demandKey");
+		if (demandKey == null) {
+			LinkedList<Building> buildings = netview.createAllBuilding();
+			buildings.add(0, netview.createOutTimeBuilding());
+			req.setAttribute("buildings", buildings);
 		} else {
-			Building[] buildings = {netview.createDemandKsyHostMap(demandKsy)};
-			session.setAttribute("buildings", buildings);
+			Building[] buildings = {netview.createDemandKeyBuilding(demandKey)};
+			req.setAttribute("buildings", buildings);
 		}
-		req.getRequestDispatcher("netview/netview.jsp").forward(req, resp);
+		req.getRequestDispatcher(jsp).forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("text/plain;charset=utf-8");
-		req.setCharacterEncoding("utf-8");
-		
 		//获得磁盘文件条目工厂
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		//获取文件需要上传到的路径
@@ -68,10 +63,10 @@ public class NetviewServlet extends HttpServlet {
 					ipFile = new File(filename);
 					inputStream = item.getInputStream();
 					outputStream = new BufferedOutputStream(new FileOutputStream(ipFile));
-					int len = -1;
+					int len;
 					byte[] bytes = new byte[1024];
 					while ((len = inputStream.read(bytes)) != -1) {
-						outputStream.write(bytes);
+						outputStream.write(bytes, 0, len);
 					}
 				}
 			}
@@ -91,10 +86,9 @@ public class NetviewServlet extends HttpServlet {
 		}
 		
 		Netview netview = Netview.getNetview();
-		HttpSession session = req.getSession();
 		Building[] buildings = {netview.addHosts(ipFile)};
-		session.setAttribute("buildings", buildings);
-		req.getRequestDispatcher("netview/netview.jsp").forward(req, resp);
+		req.setAttribute("buildings", buildings);
+		req.getRequestDispatcher(jsp).forward(req, resp);
 		
 	}
 	

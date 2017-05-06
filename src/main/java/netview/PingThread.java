@@ -1,5 +1,8 @@
 package netview;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.LinkedList;
 
 /**
@@ -9,25 +12,33 @@ public class PingThread implements Runnable {
 	private boolean run;
 	private Netview netview;
 	private int waitTime;
-	private String coding;
+	private int outTime;
 	
 	
-	public PingThread(Netview netview, int waitTime, String coding) {
+	public PingThread(Netview netview, int waitTime, int outTime) {
 		this.netview = netview;
 		this.waitTime = waitTime;
-		this.coding = coding;
+		this.outTime = outTime;
 		run = true;
 	}
 	
-	private void pingAllHosts() throws InterruptedException {
+	private void pingAllHosts() {
 		while (run) {
 			String[] addresses = netview.createAddresses();
 			for (String address : addresses) {
-				System.out.println("ping:" + address);
-				netview.addPingResult(address, new PingResult(CMD.ping(address, coding)));
-				if (!run) return;
+				try {
+					System.out.print(address + "；");
+					netview.addPingResult(address, new PingResult(InetAddress.getByName(address).isReachable(outTime)));
+					if (!run) return;
+					Thread.sleep(waitTime);
+					if (!run) return;
+				} catch (Exception e) {
+					e.printStackTrace();
+					netview.addPingResult(address, new PingResult(false));
+				}
 			}
-			Thread.sleep(waitTime);
+			System.out.println();
+			System.out.println("ping完一遍");
 		}
 	}
 	
@@ -36,11 +47,6 @@ public class PingThread implements Runnable {
 	}
 	
 	public void run() {
-		try {
-			pingAllHosts();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			stop();
-		}
+		pingAllHosts();
 	}
 }

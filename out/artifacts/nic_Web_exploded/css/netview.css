@@ -1,25 +1,37 @@
 body {
-    background-image:url('/nic/image/background.jpg');
-    background-repeat:repeat-x;
-}
-table{
-    text-align:center;
-    /*width:100%;*/
+    background-image: url('/nic/image/background.jpg');
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
-.connTr{
-    background-color:lightgreen;
+table {
+    text-align: center;
+    width: 100%;
 }
-.notConnTr{
-    background-color:lightcoral;
+
+.buildingName {
+    color: blue;
+    text-decoration: underline;
 }
-.connDelay{
-    float:right;
-    margin:5px;
-    background-color:lawngreen;
+
+.connTr {
+    background-color: lightgreen;
 }
-.notConnDelay{
-    float:right;
-    margin:5px;
-    background-color:orangered;
+
+.notConnTr {
+    background-color: lightcoral;
+}
+
+.conn {
+    float: right;
+    margin: 5px;
+    background-color: lawngreen;
+}
+
+.notConn {
+    float: right;
+    margin: 5px;
+    background-color: orangered;
 }

@@ -9,27 +9,46 @@ import java.io.IOException;
 /**
  * Created by cellargalaxy on 2017/4/27.
  */
-public class LoginFilter implements Filter{
+public class LoginFilter implements Filter {
+	private FilterConfig config;
 	
 	public void init(FilterConfig filterConfig) throws ServletException {
-	
+		config = filterConfig;
 	}
 	
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-		HttpServletResponse response=(HttpServletResponse)servletResponse;
-		HttpServletRequest request = (HttpServletRequest)servletRequest;
-		request.setCharacterEncoding("utf-8");
+		HttpServletResponse response = (HttpServletResponse) servletResponse;
+		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		request.setCharacterEncoding(config.getInitParameter("coding"));
 		response.setContentType("text/plain;charset=utf-8");
 		
-		HttpSession session=request.getSession();
-		if (session.getAttribute("isLogin")!=null||request.getRequestURI().equals("/nic/")) {
-			filterChain.doFilter(request,response);
-		}else {
-			response.sendRedirect("/nic/");
+		String disableLoginFilter = config.getInitParameter("disableLoginFilter");
+		if (disableLoginFilter.toUpperCase().equals("Y")) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+		
+		String requestPath = request.getRequestURI();
+		String separator = config.getInitParameter("separator");
+		String exceptionPath = config.getInitParameter("exceptionPath");
+		String[] exceptionPaths = exceptionPath.split(separator);
+		for (String path : exceptionPaths) {
+			if (requestPath.contains(path)) {
+				filterChain.doFilter(request, response);
+				return;
+			}
+		}
+		
+		HttpSession session = request.getSession();
+		if (session.getAttribute("youNicer") != null) {
+			filterChain.doFilter(request, response);
+		} else {
+			request.getSession().setAttribute("error", "请登录！");
+			response.sendRedirect("/nic/login");
 		}
 	}
 	
 	public void destroy() {
-	
+		this.config = null;
 	}
 }

@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
     <!-- netviewListenerStart============================================================================================= -->
     <listener>
         <listener-class>netviewWeb.NetviewListener</listener-class>
@@ -10,29 +11,112 @@
     <!-- netviewListenerStart============================================================================================= -->
 
 
-    <!-- loginFilterStart=========================================================================== -->
+    <!-- FilterStart=========================================================================== -->
     <filter>
         <filter-name>loginFilter</filter-name>
         <filter-class>nicWeb.LoginFilter</filter-class>
+        <init-param>
+            <param-name>coding</param-name><!-- 编码 -->
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>disableLoginFilter</param-name><!-- Y:过滤无效 -->
+            <param-value>N</param-value>
+        </init-param>
+        <init-param>
+            <param-name>separator</param-name><!-- 不进行过滤路径的分割符 -->
+            <param-value>;</param-value>
+        </init-param>
+        <init-param>
+            <param-name>exceptionPath</param-name><!-- 不进行过滤 -->
+            <param-value>/login;/signUp;.js;.css;.jpg;.png;.gif</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>loginFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <!-- loginFilterEnf=========================================================================== -->
 
-    <!-- loginServletStrat============================================================================================== -->
-        <servlet>
-            <servlet-name>loginServlet</servlet-name>
-            <servlet-class>nicWeb.LoginServlet</servlet-class>
-        </servlet>
-        <servlet-mapping>
-            <servlet-name>loginServlet</servlet-name>
-            <url-pattern></url-pattern>
-        </servlet-mapping>
-    <!-- loginServletEnd============================================================================================== -->
+    <filter>
+        <filter-name>netviewAdminFilter</filter-name>
+        <filter-class>netviewWeb.AdminFilter</filter-class>
+        <init-param>
+            <param-name>disableLoginFilter</param-name><!-- Y:过滤无效 -->
+            <param-value>N</param-value>
+        </init-param>
+        <init-param>
+            <param-name>separator</param-name><!-- 不进行过滤路径的分割符 -->
+            <param-value>;</param-value>
+        </init-param>
+        <init-param>
+            <param-name>exceptionPath</param-name><!-- 不进行过滤 -->
+            <param-value></param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>netviewAdminFilter</filter-name>
+        <url-pattern>/netview/*</url-pattern>
+    </filter-mapping>
 
-    <!-- netviewServletStart============================================================================================= -->
+
+    <!-- FilterEnf=========================================================================== -->
+
+
+    <!-- ServletStart============================================================================================= -->
+    <servlet>
+        <servlet-name>signUpServlet</servlet-name>
+        <servlet-class>nicWeb.SignUpServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>signUpServlet</servlet-name>
+        <url-pattern>/signUp</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>nicWeb.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>nicServlet</servlet-name>
+        <servlet-class>nicWeb.NicServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>nicServlet</servlet-name>
+        <url-pattern></url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>pictureWallServlet</servlet-name>
+        <servlet-class>nicWeb.PictureWallServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>pictureWallServlet</servlet-name>
+        <url-pattern>/pictureWall</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>nicerListServlet</servlet-name>
+        <servlet-class>nicWeb.NicerListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>nicerListServlet</servlet-name>
+        <url-pattern>/nicerList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>changeNicerServlet</servlet-name>
+        <servlet-class>nicWeb.ChangeNicerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>changeNicerServlet</servlet-name>
+        <url-pattern>/nicerList/changeNicer</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>netviewServlet</servlet-name>
         <servlet-class>netviewWeb.NetviewServlet</servlet-class>
@@ -48,13 +132,19 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>netviewJsonServlet</servlet-name>
-        <url-pattern>/netviewjson</url-pattern>
+        <url-pattern>/netview/json</url-pattern>
     </servlet-mapping>
 
-    <!-- netviewServletEnd============================================================================================= -->
+    <servlet>
+        <servlet-name>ipFileServlet</servlet-name>
+        <servlet-class>netviewWeb.IpFileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ipFileServlet</servlet-name>
+        <url-pattern>/netview/ipFile</url-pattern>
+    </servlet-mapping>
 
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
+    <!-- ServletEnd============================================================================================= -->
+
 
 </web-app>

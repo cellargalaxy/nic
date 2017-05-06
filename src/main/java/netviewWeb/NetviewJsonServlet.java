@@ -17,13 +17,16 @@ import java.io.PrintWriter;
  */
 public class NetviewJsonServlet extends HttpServlet {
 	
-	
+	/**
+	 * 添加一个Host
+	 *
+	 * @param req
+	 * @param resp
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("text/plain;charset=utf-8");
-		req.setCharacterEncoding("utf-8");
-		
-		PrintWriter out = resp.getWriter();
 		String building = req.getParameter("building");
 		String floor = req.getParameter("floor");
 		String name = req.getParameter("name");
@@ -40,29 +43,37 @@ public class NetviewJsonServlet extends HttpServlet {
 		} else {
 			jsonObject.put("result", false);
 		}
+		
+		resp.setContentType("application/json");
+		PrintWriter out = resp.getWriter();
 		out.println(jsonObject);
-		out.flush();
 		out.close();
 		
 	}
 	
+	/**
+	 * 删除一个Host
+	 *
+	 * @param req
+	 * @param resp
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("text/plain;charset=utf-8");
-		req.setCharacterEncoding("utf-8");
-		
-		PrintWriter out = resp.getWriter();
 		String address = req.getParameter("address");
 		JSONObject jsonObject = new JSONObject();
 		if (address != null) {
 			Netview netview = Netview.getNetview();
 			jsonObject.put("result", netview.deleteHost(address));
-			jsonObject.put("ip", address);
 		} else {
 			jsonObject.put("result", false);
 		}
+		jsonObject.put("ip", address);
+		
+		resp.setContentType("application/json");
+		PrintWriter out = resp.getWriter();
 		out.println(jsonObject);
-		out.flush();
 		out.close();
 	}
 }
