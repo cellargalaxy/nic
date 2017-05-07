@@ -27,7 +27,6 @@ public class PingThread implements Runnable {
 			String[] addresses = netview.createAddresses();
 			for (String address : addresses) {
 				try {
-					System.out.print(address + "；");
 					netview.addPingResult(address, new PingResult(InetAddress.getByName(address).isReachable(outTime)));
 					if (!run) return;
 					Thread.sleep(waitTime);
@@ -37,7 +36,6 @@ public class PingThread implements Runnable {
 					netview.addPingResult(address, new PingResult(false));
 				}
 			}
-			System.out.println();
 			System.out.println("ping完一遍");
 		}
 	}

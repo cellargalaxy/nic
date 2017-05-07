@@ -33,8 +33,6 @@
 			<td>QQ</td>
 			<td>出生</td>
 			<td>简介</td>
-			<td>密码</td>
-			<td>状态</td>
 			<td>是否管理员</td>
 			<td>修改</td>
 			<td>删除</td>
@@ -53,15 +51,12 @@
 				<td>${nicer.qq}</td>
 				<td>${nicer.birthday}</td>
 				<td>${nicer.introduction}</td>
-				<td>${nicer.password}</td>
-				<td>${nicer.status}</td>
 				<td>${nicer.admin}</td>
-				
 				<form method="get" action="nicerList/changeNicer">
 						<input type="hidden" name="id" value="${nicer.id}">
 					<td>
 						<input type="submit" value="修改">
-				</td>
+					</td>
 				</form>
 				
 				<td><input type="button" value="删除" onclick="turnRight(${nicer.id},0)"></td>
@@ -88,8 +83,6 @@
 		<td>出生</td>
 		<td>简介</td>
 		<c:if test="${youNicer.admin==1}">
-			<td>密码</td>
-			<td>状态</td>
 			<td>是否管理员</td>
 			<td>修改</td>
 			<td>删除</td>
@@ -109,8 +102,6 @@
 			<td>${nicer.birthday}</td>
 			<td>${nicer.introduction}</td>
 			<c:if test="${youNicer.admin==1}">
-				<td>${nicer.password}</td>
-				<td>${nicer.status}</td>
 				<td>${nicer.admin}</td>
 				
 				<form method="get" action="nicerList/changeNicer">

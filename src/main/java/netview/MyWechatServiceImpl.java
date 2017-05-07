@@ -24,7 +24,7 @@ public class MyWechatServiceImpl extends WechatServiceImpl {
 	
 	public void sendHappens(String string) {
 		if (wechatMeta != null && nicId != null) {
-			webwxsendmsg(wechatMeta, jjrName + ":\r\n" + string, nicId);
+			webwxsendmsg(wechatMeta, string, nicId);
 		}
 	}
 	
@@ -50,20 +50,22 @@ public class MyWechatServiceImpl extends WechatServiceImpl {
 		String toName = getUserRemarkName(toUserName);//null
 		String name = getUserRemarkName(userName);//null
 //		System.out.println("私聊；fromName:"+fromName+",toName:"+toName+",name:"+name+"；"+content);
+		if (this.wechatMeta == null) {
+			this.wechatMeta = wechatMeta;
+		}
 		if (xiaobingId == null && fromName != null && fromName.contains(xiaobingName)) {
 			xiaobingId = fromUserName;
+			System.out.println();
 			System.out.println("添加小冰id：" + xiaobingId);
+			System.out.println();
 		}
 		if (nicId != null && fromName != null && fromName.contains(xiaobingName)) {
-			webwxsendmsg(wechatMeta, jjrName + ":" + content.replaceAll(xiaobingName, jjrName), nicId);
+			webwxsendmsg(wechatMeta,  content.replaceAll(xiaobingName, jjrName), nicId);
 		}
 	}
 	
 	@Override
 	public void dealGroupChatMsg(WechatMeta wechatMeta, JSONObject msg, String fromUserName, String toUserName, String userName, String content) {
-		if (this.wechatMeta == null) {
-			this.wechatMeta = wechatMeta;
-		}
 		String fromName = getUserRemarkName(fromUserName);//群名
 		String toName = getUserRemarkName(toUserName);//null
 		String name = getUserRemarkName(userName);//null
@@ -72,11 +74,14 @@ public class MyWechatServiceImpl extends WechatServiceImpl {
 //		else System.out.println("群聊；fromName:"+fromName+",toName:"+toName+",name:"+name+"；"+content);
 		if (nicId == null && fromName != null && fromName.contains(nicName)) {
 			nicId = fromUserName;
-			System.out.println("添加NICid:" + nicId);
+			System.out.println();
+			System.out.println("添加网管id:" + nicId);
+			System.out.println();
 		}
 		if (fromName != null && fromName.contains(nicName)) {
-			if (contents[1].startsWith(jjrName) && xiaobingId != null) {
-				webwxsendmsg(wechatMeta, content.substring(content.indexOf("<br/>") + 5).replaceAll(jjrName, ""), xiaobingId);
+			if (contents[1].trim().startsWith(jjrName) && xiaobingId != null) {
+				System.out.println("群聊；"+fromName+":"+getUserRemarkName(contents[0])+":"+contents[1]);
+				webwxsendmsg(wechatMeta, contents[1].substring(3), xiaobingId);
 			}
 		}
 	}
