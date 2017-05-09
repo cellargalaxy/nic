@@ -12,7 +12,7 @@
 	<script type="text/javascript" src="/nic/js/jquery.js"></script>
 	<link rel="stylesheet" type="text/css" href="/nic/css/index.css">
 	<script type="text/javascript">
-		setInterval('pictureWall()', 15000);
+		setInterval('pictureWall()', 20000);
 		function pictureWall() {
 			document.body.style.backgroundImage = "url(/nic/pictureWall?t=" + Math.random() + ")";
 		}

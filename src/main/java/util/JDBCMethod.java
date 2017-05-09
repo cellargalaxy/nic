@@ -1,16 +1,9 @@
 package util;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.pool.DruidDataSourceFactory;
-import com.alibaba.druid.pool.DruidPooledConnection;
 
-import javax.sql.DataSource;
-import java.io.File;
-import java.io.FileInputStream;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * Created by cellargalaxy on 2017/4/20.

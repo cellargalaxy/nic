@@ -3,10 +3,8 @@ package netview;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
 
 /**
  * Created by cellargalaxy on 2017/4/22.
@@ -15,14 +13,22 @@ public class Netview {
 	private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("MM-dd HH:mm:ss");
 	private static final Netview netview = new Netview();
 	
-	private String happens;
-	
 	private LinkedList<Host> hosts;
 	private PingThread pingThread;
+	private WecharThread wecharThread;
 	
 	private Netview() {
 		hosts = Sql.findAllHosts(Configuration.getTimes());
 		pingThread = new PingThread(this, Configuration.getWaitTime(), Configuration.getOutTime());
+		try {
+			wecharThread = new WecharThread((WecharInter) Class.forName(Configuration.getWechatInterClassName()).newInstance());
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static Netview getNetview() {
@@ -31,33 +37,22 @@ public class Netview {
 	
 	public void start() {
 		new Thread(pingThread, "ping线程").start();
+		new Thread(wecharThread,"微信发送信息线程").start();
 	}
 	
 	public synchronized void stop() {
 		pingThread.stop();
+		wecharThread.stop();
 	}
 	
 	public void addHappen(Host host) {
-		if (happens == null) {
-			if (host.IsConn()) {
-				happens = "恢复：" + host.getBuilding() + "-" + host.getName() + "：" + SIMPLE_DATE_FORMAT.format(host.GetDate());
-			} else {
-				happens = "断开：" + host.getBuilding() + "-" + host.getName() + "：" + SIMPLE_DATE_FORMAT.format(host.GetDate());
-			}
+		if (host.IsConn()) {
+			wecharThread.addHappen("恢复：" + host.getBuilding() + "-" + host.getName() + "：" + SIMPLE_DATE_FORMAT.format(host.GetDate()));
 		} else {
-			if (host.IsConn()) {
-				happens += "\r\n恢复：" + host.getBuilding() + "-" + host.getName() + "：" + SIMPLE_DATE_FORMAT.format(host.GetDate());
-			} else {
-				happens += "\r\n断开：" + host.getBuilding() + "-" + host.getName() + "：" + SIMPLE_DATE_FORMAT.format(host.GetDate());
-			}
+			wecharThread.addHappen("断开：" + host.getBuilding() + "-" + host.getName() + "：" + SIMPLE_DATE_FORMAT.format(host.GetDate()));
 		}
 	}
 	
-	public String getHappens() {
-		String string = happens;
-		happens = null;
-		return string;
-	}
 	
 	public synchronized boolean addHost(String building, int floor, String name, String address) {
 		Host host = new Host(building, floor, name, address, Configuration.getTimes());

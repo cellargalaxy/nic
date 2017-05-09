@@ -11,10 +11,8 @@ public class Configuration {
 	private static int waitTime;
 	private static int outTime;
 	private static String ipTableName;
-	private static String xiaobingName;
-	private static String nicName;
-	private static String jjrName;
 	private static int wechatWaitTime;
+	private static String wechatInterClassName;
 	
 	static {
 		try {
@@ -24,14 +22,10 @@ public class Configuration {
 			properties.load(new BufferedReader(new InputStreamReader(new FileInputStream(confFile), "utf-8")));
 			ipTableName = properties.getProperty("ipTableName");
 			
-			xiaobingName = properties.getProperty("xiaobingName");
-			if (xiaobingName == null) xiaobingName = "小冰";
+			wechatInterClassName = properties.getProperty("wechatInterClassName");
+			if (wechatInterClassName == null) wechatInterClassName = "netview.Wechat";
 			
-			nicName = properties.getProperty("nicName");
-			if (nicName == null) nicName = "网络";
 			
-			jjrName = properties.getProperty("jjrName");
-			if (jjrName == null) jjrName = "jjr";
 			try {
 				times = new Integer(properties.getProperty("times"));
 			} catch (Exception e) {
@@ -62,9 +56,7 @@ public class Configuration {
 			waitTime = 1000;
 			outTime = 1500;
 			wechatWaitTime = 1000 * 60 * 15;
-			xiaobingName = "小冰";
-			nicName = "网络";
-			jjrName = "jjr";
+			wechatInterClassName = "netview.Wechat";
 		}
 	}
 	
@@ -101,29 +93,6 @@ public class Configuration {
 		Configuration.ipTableName = ipTableName;
 	}
 	
-	public static String getXiaobingName() {
-		return xiaobingName;
-	}
-	
-	public static void setXiaobingName(String xiaobingName) {
-		Configuration.xiaobingName = xiaobingName;
-	}
-	
-	public static String getNicName() {
-		return nicName;
-	}
-	
-	public static void setNicName(String nicName) {
-		Configuration.nicName = nicName;
-	}
-	
-	public static String getJjrName() {
-		return jjrName;
-	}
-	
-	public static void setJjrName(String jjrName) {
-		Configuration.jjrName = jjrName;
-	}
 	
 	public static int getWechatWaitTime() {
 		return wechatWaitTime;
@@ -131,5 +100,13 @@ public class Configuration {
 	
 	public static void setWechatWaitTime(int wechatWaitTime) {
 		Configuration.wechatWaitTime = wechatWaitTime;
+	}
+	
+	public static String getWechatInterClassName() {
+		return wechatInterClassName;
+	}
+	
+	public static void setWechatInterClassName(String wechatInterClassName) {
+		Configuration.wechatInterClassName = wechatInterClassName;
 	}
 }

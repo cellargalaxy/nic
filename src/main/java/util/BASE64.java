@@ -12,7 +12,6 @@ import java.io.UnsupportedEncodingException;
 public class BASE64 {
 	
 	
-	
 	public static String encryptBASE64(String string) {
 		return new BASE64Encoder().encode(string.getBytes());
 	}

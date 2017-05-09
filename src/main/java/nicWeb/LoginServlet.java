@@ -2,7 +2,6 @@ package nicWeb;
 
 import nic.Nic;
 import nic.Nicer;
-import util.BASE64;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

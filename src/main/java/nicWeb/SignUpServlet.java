@@ -1,19 +1,14 @@
 package nicWeb;
 
-import netview.Netview;
 import nic.Nic;
 import org.json.JSONObject;
 import util.BeanMapJson;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
 /**

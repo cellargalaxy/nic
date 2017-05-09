@@ -1,6 +1,5 @@
 package netviewWeb;
 
-import netview.Configuration;
 import util.FileServletMethod;
 
 import javax.servlet.ServletException;
@@ -16,7 +15,7 @@ import java.io.IOException;
 public class IpFileServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		File file = new File(getServletContext().getRealPath("/") + "/otherFile/ip示例.xls");
+		File file = new File(getServletContext().getRealPath("/") + "/otherFile/ip.xls");
 		FileServletMethod.sendFile(resp, file, true, file.getName());
 	}
 	

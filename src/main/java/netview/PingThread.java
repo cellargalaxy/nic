@@ -1,9 +1,6 @@
 package netview;
 
-import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.LinkedList;
 
 /**
  * Created by cellargalaxy on 2017/4/20.
