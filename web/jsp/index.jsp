@@ -13,12 +13,15 @@
 	<link rel="stylesheet" type="text/css" href="/nic/css/index.css">
 	<script type="text/javascript">
 		setInterval('pictureWall()', 20000);
+		function init() {
+			document.body.style.backgroundImage = "url(/nic/image/nic.jpg)";
+		}
 		function pictureWall() {
 			document.body.style.backgroundImage = "url(/nic/pictureWall?t=" + Math.random() + ")";
 		}
 	</script>
 </head>
-<body onload="pictureWall()">
+<body onload="init()">
 <div class="translucent">
 	<h2>${error}</h2>
 	<h2>网络信息与现代教育技术中心</h2>

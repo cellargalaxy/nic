@@ -1,0 +1,59 @@
+html,body {
+    background-image: url('/nic/image/nic.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    /*background-color: yellow;*/
+}
+
+/*不知道干嘛的，反正删了会gg*/
+form p > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+.login {
+    display: table;
+    border: none;
+}
+
+/*半页*/
+.wrapper {
+    width: 50%;
+    height: 100%;
+    min-width: 5em;
+    /*background-color: rgba(222, 111, 222, 0.5);*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*登录的那个框*/
+.frame {
+    height: 45%;
+    width: 60%;
+    /*background-color: rgba(123, 255, 255, 0.5);*/
+    border-radius: 5%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.3em solid rgba(172, 204, 119 , 1);
+}
+
+.errorPic{
+    height: 30%;
+    line-height: 30%;
+    text-align: center;
+}
+
+
+
+.errorText {
+    font-size: 100%;
+    font-family: 微软雅黑;
+    color: rgba(172, 204, 119 , 1);
+}
+

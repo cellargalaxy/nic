@@ -10,7 +10,7 @@ import javax.servlet.ServletContextListener;
  */
 public class NetviewListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
-		Netview.getNetview().start();
+//		Netview.getNetview().start();
 	}
 	
 	public void contextDestroyed(ServletContextEvent servletContextEvent) {

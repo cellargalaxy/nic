@@ -27,13 +27,13 @@ public class Building {
 		map.put("address", host.getAddress());
 		
 		LinkedList<PingResult> results = host.GetResults();
-		boolean[] conns = new boolean[results.size()];
+		int[] delays = new int[results.size()];
 		int j = 0;
 		for (PingResult result : results) {
-			conns[j] = result.isConn();
+			delays[j] = result.getDelay();
 			j++;
 		}
-		map.put("conns", conns);
+		map.put("delays", delays);
 		map.put("conn", host.IsConn());
 		map.put("date", SIMPLE_DATE_FORMAT.format(host.GetDate()));
 		maps.add(map);

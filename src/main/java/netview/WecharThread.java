@@ -27,7 +27,7 @@ public class WecharThread implements Runnable {
 		run = false;
 	}
 	
-	@Override
+	
 	public void run() {
 		while (run) {
 			try {

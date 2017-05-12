@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="/nic/js/netview.js"></script>
 	<link rel="stylesheet" type="text/css" href="/nic/css/netview.css">
 	<script type="text/javascript">
-		setInterval("reload()", 1000 * 60);
+		setInterval("reload()", 1000 * 60 * 5);
 	</script>
 </head>
 <body>
@@ -74,21 +74,21 @@
 				<td>${map.address}</td>
 			</c:if>
 			<td>
-				<c:forEach var="conn" items="${map.conns}">
-					<c:if test="${conn}">
-						<div class="conn">通</div>
+				<c:forEach var="delay" items="${map.delays}">
+					<c:if test="${delay>-1}">
+						<div class="conn">${delay}</div>
 					</c:if>
-					<c:if test="${!conn}">
-						<div class="notConn">断</div>
+					<c:if test="${delay<0}">
+						<div class="notConn">${delay}</div>
 					</c:if>
 				</c:forEach>
 			</td>
 			<td>
 				<c:if test="${map.conn}">
-					<img src="image/huaji.jpg" width="30px" height="30px">
+					<img src="image/huaji.jpg" >
 				</c:if>
 				<c:if test="${!map.conn}">
-					<img src="image/angry.jpg" width="30px" height="30px">
+					<img src="image/angry.jpg" ">
 				</c:if>
 			</td>
 			

@@ -1,6 +1,8 @@
 package netview;
 
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
@@ -10,6 +12,7 @@ import java.util.LinkedList;
  * Created by cellargalaxy on 2017/4/22.
  */
 public class Netview {
+	private static final Logger LOGGER=Logger.getLogger(Netview.class.getName());
 	private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("MM-dd HH:mm:ss");
 	private static final Netview netview = new Netview();
 	
@@ -18,10 +21,11 @@ public class Netview {
 	private WecharThread wecharThread;
 	
 	private Netview() {
-		hosts = Sql.findAllHosts(Configuration.getTimes());
-		pingThread = new PingThread(this, Configuration.getWaitTime(), Configuration.getOutTime());
 		try {
+			hosts = Sql.findAllHosts(Configuration.getPingTimes());
+			pingThread = new PingThread(this);
 			wecharThread = new WecharThread((WecharInter) Class.forName(Configuration.getWechatInterClassName()).newInstance());
+			LOGGER.info("初始化监控主类");
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
@@ -37,27 +41,38 @@ public class Netview {
 	
 	public void start() {
 		new Thread(pingThread, "ping线程").start();
+		LOGGER.info("启动ping线程");
 		new Thread(wecharThread,"微信发送信息线程").start();
+		LOGGER.info("启动微信发送信息线程");
 	}
 	
 	public synchronized void stop() {
 		pingThread.stop();
+		LOGGER.info("结束ping线程");
 		wecharThread.stop();
+		LOGGER.info("结束微信发送信息线程");
 	}
 	
 	public void addHappen(Host host) {
 		if (host.IsConn()) {
+			LOGGER.info("恢复：" + host.getBuilding() + "-" + host.getName() + "：" + SIMPLE_DATE_FORMAT.format(host.GetDate()));
 			wecharThread.addHappen("恢复：" + host.getBuilding() + "-" + host.getName() + "：" + SIMPLE_DATE_FORMAT.format(host.GetDate()));
 		} else {
+			LOGGER.info("断开：" + host.getBuilding() + "-" + host.getName() + "：" + SIMPLE_DATE_FORMAT.format(host.GetDate()));
 			wecharThread.addHappen("断开：" + host.getBuilding() + "-" + host.getName() + "：" + SIMPLE_DATE_FORMAT.format(host.GetDate()));
 		}
 	}
 	
 	
 	public synchronized boolean addHost(String building, int floor, String name, String address) {
-		Host host = new Host(building, floor, name, address, Configuration.getTimes());
+		Host host = new Host(building, floor, name, address, Configuration.getPingTimes());
+		return addHost(host);
+	}
+	
+	private synchronized boolean addHost(Host host){
 		if (Sql.addAddress(host)) {
 			hosts.add(host);
+			LOGGER.info("添加一个主机；building："+host.getBuilding()+"；name："+host.getName()+"；address："+host.getAddress());
 			return true;
 		} else {
 			return false;
@@ -71,9 +86,7 @@ public class Netview {
 		} else {
 			LinkedList<Host> failHosts = new LinkedList<Host>();
 			for (Host host : hosts) {
-				if (Sql.addAddress(host)) {
-					this.hosts.add(host);
-				} else {
+				if (!addHost(host)) {
 					failHosts.add(host);
 				}
 			}
@@ -90,6 +103,7 @@ public class Netview {
 			while (iterator.hasNext()) {
 				if (iterator.next().getAddress().equals(address)) {
 					iterator.remove();
+					LOGGER.info("删除主机："+address);
 					return true;
 				}
 			}
@@ -151,6 +165,7 @@ public class Netview {
 		for (Host host : hosts) {
 			if (host.getAddress().equals(address)) {
 				host.addResult(result);
+				LOGGER.debug("地址："+host.getBuilding()+"-"+host.getName()+"；IP："+host.getAddress()+"；添加一个结果；是否连通："+result.isConn()+"延时："+result.getDelay());
 			}
 		}
 	}
