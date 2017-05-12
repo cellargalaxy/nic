@@ -19,6 +19,7 @@ public class LoginServlet extends HttpServlet {
 	private String successJsp="/jsp/login.jsp";
 	private String failJsp = "/error.jsp";
 	
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
