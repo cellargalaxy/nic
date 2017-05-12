@@ -10,6 +10,7 @@ import java.io.IOException;
  * Created by cellargalaxy on 2017/4/27.
  */
 public class LoginFilter implements Filter {
+	private String errorJsp="/error.jsp";
 	private FilterConfig config;
 	
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -43,8 +44,8 @@ public class LoginFilter implements Filter {
 		if (session.getAttribute("youNicer") != null) {
 			filterChain.doFilter(request, response);
 		} else {
-			request.getSession().setAttribute("error", "请登录！");
-			response.sendRedirect("/nic/login");
+			request.setAttribute("error", "请登录！");
+			request.getRequestDispatcher(errorJsp).forward(request, response);
 		}
 	}
 	

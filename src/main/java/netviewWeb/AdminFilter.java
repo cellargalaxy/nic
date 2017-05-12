@@ -12,6 +12,7 @@ import java.io.IOException;
  * Created by cellargalaxy on 2017/5/5.
  */
 public class AdminFilter implements Filter {
+	private String errorJsp="/error.jsp";
 	private FilterConfig config;
 	
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -46,13 +47,13 @@ public class AdminFilter implements Filter {
 			if (nicer.getAdmin() == Nicer.isAdmin) {
 				filterChain.doFilter(request, response);
 			} else {
-				request.getSession().setAttribute("error", "你没有管理员权限，请用管理员账号登录！");
-				response.sendRedirect("/nic/login");
+				request.setAttribute("error", "你没有管理员权限，请用管理员账号登录！");
+				request.getRequestDispatcher(errorJsp).forward(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.getSession().setAttribute("error", "请登录！");
-			response.sendRedirect("/nic/login");
+			request.setAttribute("error", "请登录！");
+			request.getRequestDispatcher(errorJsp).forward(request, response);
 		}
 	}
 	

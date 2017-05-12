@@ -15,7 +15,6 @@
 	<link rel="stylesheet" type="text/css" href="/nic/css/nicerList.css">
 </head>
 <body>
-<h2>${error}</h2>
 <a href="nicerList/changeNicer?id=${youNicer.id}">修改个人信息</a>
 
 <c:if test="${youNicer.admin==1}">

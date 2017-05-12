@@ -18,7 +18,6 @@
 	</script>
 </head>
 <body>
-<h2>${error}</h2>
 
 <h5>
 	<form action="" method="get">

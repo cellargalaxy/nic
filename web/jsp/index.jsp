@@ -23,7 +23,6 @@
 </head>
 <body onload="init()">
 <div class="translucent">
-	<h2>${error}</h2>
 	<h2>网络信息与现代教育技术中心</h2>
 	<!-- 
 	<p><a href="signUp">注册</a></p>

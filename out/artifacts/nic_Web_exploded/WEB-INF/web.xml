@@ -21,7 +21,7 @@
         </init-param>
         <init-param>
             <param-name>disableLoginFilter</param-name><!-- Y:过滤无效 -->
-            <param-value>Y</param-value>
+            <param-value>N</param-value>
         </init-param>
         <init-param>
             <param-name>separator</param-name><!-- 不进行过滤路径的分割符 -->
@@ -42,7 +42,7 @@
         <filter-class>netviewWeb.AdminFilter</filter-class>
         <init-param>
             <param-name>disableLoginFilter</param-name><!-- Y:过滤无效 -->
-            <param-value>Y</param-value>
+            <param-value>N</param-value>
         </init-param>
         <init-param>
             <param-name>separator</param-name><!-- 不进行过滤路径的分割符 -->
