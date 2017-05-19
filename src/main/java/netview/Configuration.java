@@ -16,6 +16,9 @@ public class Configuration {
 	private static String pingRegularly;
 	private static int wechatWaitTime;
 	private static String wechatInterClassName;
+	private static String wechatHost;
+	private static int wechatPort;
+	private static String wechatCoding;
 	
 	static {
 		try {
@@ -68,6 +71,19 @@ public class Configuration {
 			wechatInterClassName = properties.getProperty("wechatInterClassName");
 			if (wechatInterClassName == null) wechatInterClassName = "netview.Wechat";
 			
+			wechatHost = properties.getProperty("wechatHost");
+			if (wechatHost == null) wechatHost = "127.0.0.1";
+			
+			try {
+				wechatPort = new Integer(properties.getProperty("wechatPort"));
+			} catch (Exception e) {
+				wechatPort = 12345;
+				e.printStackTrace();
+			}
+			
+			wechatCoding = properties.getProperty("wechatCoding");
+			if (wechatCoding == null) wechatCoding = "utf-8";
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			pingTimes=3;
@@ -77,6 +93,9 @@ public class Configuration {
 			pingParameter="";
 			wechatWaitTime=900000;
 			wechatInterClassName="netview.Wechat";
+			wechatInterClassName = "127.0.0.1";
+			wechatPort = 12345;
+			wechatCoding = "utf-8";
 		}
 	}
 	
@@ -151,5 +170,29 @@ public class Configuration {
 	
 	public static void setWechatInterClassName(String wechatInterClassName) {
 		Configuration.wechatInterClassName = wechatInterClassName;
+	}
+	
+	public static String getWechatHost() {
+		return wechatHost;
+	}
+	
+	public static void setWechatHost(String wechatHost) {
+		Configuration.wechatHost = wechatHost;
+	}
+	
+	public static int getWechatPort() {
+		return wechatPort;
+	}
+	
+	public static void setWechatPort(int wechatPort) {
+		Configuration.wechatPort = wechatPort;
+	}
+	
+	public static String getWechatCoding() {
+		return wechatCoding;
+	}
+	
+	public static void setWechatCoding(String wechatCoding) {
+		Configuration.wechatCoding = wechatCoding;
 	}
 }

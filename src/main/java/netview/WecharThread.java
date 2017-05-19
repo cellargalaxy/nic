@@ -17,7 +17,7 @@ public class WecharThread implements Runnable {
 	
 	public void addHappen(String string) {
 		if (happens == null) {
-			happens = null;
+			happens = string;
 		} else {
 			happens += "\r\n" + string;
 		}
