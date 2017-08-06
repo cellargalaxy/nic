@@ -23,13 +23,13 @@ table {
 }
 
 .conn {
-    float: right;
+    float: left;
     margin: 5px;
     background-color: lawngreen;
 }
 
 .notConn {
-    float: right;
+    float: left;
     margin: 5px;
     background-color: orangered;
 }

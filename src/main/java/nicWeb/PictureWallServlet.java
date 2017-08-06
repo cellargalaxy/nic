@@ -14,14 +14,14 @@ import java.io.IOException;
  * Created by cellargalaxy on 2017/5/4.
  */
 public class PictureWallServlet extends HttpServlet {
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		File picture = PicturePool.getPictureFile();
-		if (picture == null) {
-			picture = new File(getServletContext().getRealPath("/") + "/image/nic.jpg");
-		}
-		FileServletMethod.sendFile(resp, picture, false, null);
-	}
-	
-	
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        File picture = PicturePool.getPictureFile();
+        if (picture == null) {
+            picture = new File(getServletContext().getRealPath("/") + "/image/nic.jpg");
+        }
+        FileServletMethod.sendFile(resp, picture, false, null);
+    }
+
+
 }

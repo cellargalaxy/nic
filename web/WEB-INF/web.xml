@@ -29,7 +29,7 @@
         </init-param>
         <init-param>
             <param-name>exceptionPath</param-name><!-- 不进行过滤 -->
-            <param-value>/login;/signUp;.js;.css;.jpg;.png;.gif</param-value>
+            <param-value>/login;/signUp;/wx;.js;.css;.jpg;.png;.gif</param-value>
         </init-param>
     </filter>
     <filter-mapping>
@@ -59,7 +59,7 @@
     </filter-mapping>
 
 
-    <!-- FilterEnf=========================================================================== -->
+    <!-- FilterEnd=========================================================================== -->
 
 
     <!-- ServletStart============================================================================================= -->
@@ -142,6 +142,15 @@
     <servlet-mapping>
         <servlet-name>ipFileServlet</servlet-name>
         <url-pattern>/netview/ipFile</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>jsonHostServlet</servlet-name>
+        <servlet-class>wechatWeb.JsonHostServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jsonHostServlet</servlet-name>
+        <url-pattern>/wx/jsonHost</url-pattern>
     </servlet-mapping>
 
     <!-- ServletEnd============================================================================================= -->

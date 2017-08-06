@@ -74,26 +74,21 @@
 		</tr>
 		<tr class="textTr">
 			<td>密码：</td>
-			<td><input type="password" name="password" value="${changeNicer.password}"></td>
+			<td><input type="password" name="password"></td>
 		</tr>
 		<tr class="textTr">
 			<td>确认密码：</td>
-			<td><input type="password" name="password1" value="${changeNicer.password}"></td>
+			<td><input type="password" name="password1"></td>
 		</tr>
-		
-		<c:if test="${youNicer.admin==1}">
+
+		<c:if test="${youNicer.status==youNicer.adminStatus}">
 			<tr class="textTr">
 				<td>状态：</td>
 				<td><input type="text" name="status" placeholder="0:禁用;1:激活" value="${changeNicer.status}"></td>
 			</tr>
-			<tr class="textTr">
-				<td>是否管理员：</td>
-				<td><input type="text" name="admin" placeholder="1:管理员" value="${changeNicer.admin}"></td>
-			</tr>
 		</c:if>
-		<c:if test="${youNicer.admin!=1}">
+		<c:if test="${youNicer.status!=youNicer.adminStatus}">
 			<input type="hidden" name="status" value="${changeNicer.status}">
-			<input type="hidden" name="admin" value="${changeNicer.admin}">
 		</c:if>
 		
 		<tr class="textareaTr">
