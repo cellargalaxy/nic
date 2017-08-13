@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by cellargalaxy on 2017/4/22.
@@ -24,8 +26,20 @@ public class Netview {
 
     private Netview() {
         hosts = Sql.findAllHosts(Configuration.getPingTimes());
+        sortHost();
         pingThread = new PingThread(this);
         LOGGER.info("初始化监控主类");
+    }
+
+    private void sortHost(){
+        Map<String,Host> map=new TreeMap<String, Host>();
+        for (Host host : hosts) {
+            map.put(host.getBuilding()+host.getFloor()+host.getAddress(),host);
+        }
+        hosts=new LinkedList<Host>();
+        for (Map.Entry<String, Host> entry : map.entrySet()) {
+            hosts.add(entry.getValue());
+        }
     }
 
     public static Netview getNETVIEW() {
