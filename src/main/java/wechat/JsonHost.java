@@ -2,12 +2,14 @@ package wechat;
 
 import netview.Host;
 import netview.Netview;
+import netview.PingResult;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import util.MD5;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 
 /**
  * Created by 孵化种子 on 2017/8/6.
@@ -16,7 +18,6 @@ public class JsonHost {
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT=new SimpleDateFormat("yyyy-MM-dd HH");
 
     public static void main(String[] args) {
-        System.out.println(SIMPLE_DATE_FORMAT.format(new Date()));
         System.out.println(jsonHostToken());
     }
 
@@ -40,6 +41,24 @@ public class JsonHost {
         jsonObject.put("floor",host.getFloor());
         jsonObject.put("model",host.getModel());
         jsonObject.put("name",host.getName());
+        jsonObject.put("results",jsonPingResults(host.getResults()));
+        jsonObject.put("conn",host.isConn());
+        jsonObject.put("date",host.getDate());
+        return jsonObject;
+    }
+
+    private static JSONArray jsonPingResults(LinkedList<PingResult> results){
+        JSONArray jsonPingResultArray=new JSONArray();
+        for (PingResult result : results) {
+            jsonPingResultArray.put(jsonPingResult(result));
+        }
+        return jsonPingResultArray;
+    }
+
+    private static JSONObject jsonPingResult(PingResult pingResult){
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("date",pingResult.getDate());
+        jsonObject.put("delay",pingResult.getDelay());
         return jsonObject;
     }
 }

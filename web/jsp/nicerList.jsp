@@ -20,7 +20,7 @@
     <a href="/nic">首页</a> | <a href="nicerList/changeNicer?id=${youNicer.id}">修改个人信息</a>
 </h5>
 
-<c:if test="${youNicer.status==youNicer.adminStatus}">
+<c:if test="${youNicer!=null&&youNicer.status==youNicer.adminStatus}">
     <h4>待审核</h4>
     <table>
         <tr>
@@ -82,7 +82,7 @@
         <td>QQ</td>
         <td>出生</td>
         <td>简介</td>
-        <c:if test="${youNicer.status==youNicer.adminStatus}">
+        <c:if test="${youNicer!=null&&youNicer.status==youNicer.adminStatus}">
             <td>状态</td>
             <td>修改</td>
             <td>删除</td>
@@ -101,7 +101,7 @@
             <td>${nicer.qq}</td>
             <td><fmt:formatDate value="${nicer.birthday}" pattern="yyyy-MM-dd"/></td>
             <td>${nicer.introduction}</td>
-            <c:if test="${youNicer.status==youNicer.adminStatus}">
+            <c:if test="${youNicer!=null&&youNicer.status==youNicer.adminStatus}">
                 <td>${nicer.status}</td>
                 <form method="get" action="nicerList/changeNicer">
                     <input type="hidden" name="id" value="${nicer.id}">

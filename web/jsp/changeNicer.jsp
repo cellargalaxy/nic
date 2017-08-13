@@ -81,13 +81,13 @@
 			<td><input type="password" name="password1"></td>
 		</tr>
 
-		<c:if test="${youNicer.status==youNicer.adminStatus}">
+		<c:if test="${youNicer!=null&&youNicer.status==youNicer.adminStatus}">
 			<tr class="textTr">
 				<td>状态：</td>
 				<td><input type="text" name="status" placeholder="0:禁用;1:激活" value="${changeNicer.status}"></td>
 			</tr>
 		</c:if>
-		<c:if test="${youNicer.status!=youNicer.adminStatus}">
+		<c:if test="${youNicer!=null&&youNicer.status!=youNicer.adminStatus}">
 			<input type="hidden" name="status" value="${changeNicer.status}">
 		</c:if>
 		

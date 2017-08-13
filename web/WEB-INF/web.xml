@@ -153,6 +153,15 @@
         <url-pattern>/wx/jsonHost</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>wxNetviewServlet</servlet-name>
+        <servlet-class>wechatWeb.WXNetviewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>wxNetviewServlet</servlet-name>
+        <url-pattern>/wx/netview</url-pattern>
+    </servlet-mapping>
+
     <!-- ServletEnd============================================================================================= -->
 
 
