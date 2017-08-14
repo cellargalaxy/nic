@@ -18,14 +18,8 @@ public class ExcelReadIp {
             workbook = Workbook.getWorkbook(file);
             Sheet sheet = workbook.getSheet(0);
             LinkedList<Host> hosts = new LinkedList<Host>();
-            main:
             for (int i = 1; i < sheet.getRows(); i++) {
                 Cell[] cells = sheet.getRow(i);
-                for (Cell cell : cells) {
-                    if (cell.getContents() == null || cell.getContents().trim().length() == 0) {
-                        continue main;
-                    }
-                }
                 Host host;
                 if (cells.length == 5) {
                     //					address					building				floor					model					name
