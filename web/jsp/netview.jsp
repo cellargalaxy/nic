@@ -31,8 +31,8 @@
     <h5>
         ip：<input type="text" name="address" placeholder="127.0.0.1">
         楼栋：<input type="text" name="building" placeholder="A1">
-        楼层：<input type="text" name="floor" placeholder="1F">
-        机型：<input type="text" name="model" placeholder="2328">
+        楼层：<input type="text" name="floor" placeholder="1F/601">
+        机型：<input type="text" name="model" placeholder="S2352">
         名字：<input type="text" name="name" placeholder="选填">
         <input type="button" value="添加" onclick="addHost()">
     </h5>

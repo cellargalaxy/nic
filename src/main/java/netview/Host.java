@@ -12,8 +12,8 @@ public class Host {
     private String floor;
     private String model;
     private String name;
-    private int times;
-    private LinkedList<PingResult> results;
+    private final int times;
+    private final LinkedList<PingResult> results;
     private boolean conn;
     private Date date;
 
@@ -114,19 +114,11 @@ public class Host {
     public int getTimes() {
         return times;
     }
-
-    public void setTimes(int times) {
-        this.times = times;
-    }
-
+    
     public LinkedList<PingResult> getResults() {
         return results;
     }
-
-    public void setResults(LinkedList<PingResult> results) {
-        this.results = results;
-    }
-
+    
     public boolean isConn() {
         return conn;
     }

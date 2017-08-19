@@ -36,8 +36,9 @@
             <td>出生</td>
             <td>简介</td>
             <td>修改</td>
+            <td>更权</td>
+            <td>更权</td>
             <td>删除</td>
-            <td>通过</td>
         </tr>
         <c:forEach var="nicer" items="${tempNicers}">
             <tr>
@@ -59,8 +60,9 @@
                     </td>
                 </form>
 
-                <td><input type="button" value="删除" onclick="turnRight(${nicer.id},0)"></td>
                 <td><input type="button" value="通过" onclick="turnRight(${nicer.id},1)"></td>
+                <td><input type="button" value="管理员" onclick="turnRight(${nicer.id},2)"></td>
+                <td><input type="button" value="删除" onclick="turnRight(${nicer.id},0)"></td>
             </tr>
         </c:forEach>
     </table>
@@ -85,6 +87,8 @@
         <c:if test="${youNicer!=null&&youNicer.status==youNicer.adminStatus}">
             <td>状态</td>
             <td>修改</td>
+            <td>更权</td>
+            <td>更权</td>
             <td>删除</td>
         </c:if>
     </tr>
@@ -110,6 +114,8 @@
                     </td>
                 </form>
 
+                <td><input type="button" value="非管理员" onclick="turnRight(${nicer.id},1)"></td>
+                <td><input type="button" value="管理员" onclick="turnRight(${nicer.id},2)"></td>
                 <td><input type="button" value="删除" onclick="turnRight(${nicer.id},0)"></td>
             </c:if>
         </tr>

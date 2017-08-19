@@ -10,7 +10,7 @@ import java.io.IOException;
  * Created by cellargalaxy on 2017/5/4.
  */
 public class NicServlet extends HttpServlet {
-    private String jsp = "/jsp/index.jsp";
+    private static final String jsp = "/jsp/index.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

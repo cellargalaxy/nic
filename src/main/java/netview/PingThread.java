@@ -11,17 +11,17 @@ import java.io.ByteArrayOutputStream;
  */
 public class PingThread implements Runnable {
     private static final Logger LOGGER = Logger.getLogger(PingThread.class.getName());
-    private boolean run;
-    private Netview netview;
+    private volatile boolean runAble;
+    private final Netview netview;
 
 
     public PingThread(Netview netview) {
         this.netview = netview;
-        run = true;
+        runAble = true;
     }
 
     private void pingAllHosts() {
-        while (run) {
+        while (runAble) {
             Host[] hosts = netview.createAddresses();
             ByteArrayOutputStream[] byteArrayOutputStreams = pings(hosts);
             try {
@@ -65,7 +65,7 @@ public class PingThread implements Runnable {
     }
 
     public void stop() {
-        run = false;
+        runAble = false;
     }
 
     public void run() {

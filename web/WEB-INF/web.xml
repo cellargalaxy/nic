@@ -21,7 +21,7 @@
         </init-param>
         <init-param>
             <param-name>disableLoginFilter</param-name><!-- Y:过滤无效 -->
-            <param-value>N</param-value>
+            <param-value>Y</param-value>
         </init-param>
         <init-param>
             <param-name>separator</param-name><!-- 不进行过滤路径的分割符 -->
@@ -29,7 +29,7 @@
         </init-param>
         <init-param>
             <param-name>exceptionPath</param-name><!-- 不进行过滤 -->
-            <param-value>/login;/signUp;/wx;.js;.css;.jpg;.png;.gif</param-value>
+            <param-value>/login;/signUp;/wx;/nic/css;/nic/image;/nic/js</param-value>
         </init-param>
     </filter>
     <filter-mapping>
@@ -91,6 +91,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>pictureServlet</servlet-name>
+        <servlet-class>nicWeb.PictureServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>pictureServlet</servlet-name>
+        <url-pattern>/picture</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>pictureWallServlet</servlet-name>
         <servlet-class>nicWeb.PictureWallServlet</servlet-class>
     </servlet>
@@ -142,6 +151,15 @@
     <servlet-mapping>
         <servlet-name>ipFileServlet</servlet-name>
         <url-pattern>/netview/ipFile</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>uploadClassScheduleServlet</servlet-name>
+        <servlet-class>onDutyWeb.UploadClassScheduleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>uploadClassScheduleServlet</servlet-name>
+        <url-pattern>/onDuty/uploadClassSchedule</url-pattern>
     </servlet-mapping>
 
     <servlet>

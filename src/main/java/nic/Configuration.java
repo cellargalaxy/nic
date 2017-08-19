@@ -14,10 +14,10 @@ public class Configuration {
     static {
         try {
             Properties properties = new Properties();
-            File confFile = new File(new File(netview.Configuration.class.getResource("").getPath()).getParentFile().getAbsolutePath() + "/netview.properties");
-            properties.load(new FileInputStream(confFile));
+            File confFile = new File(new File(netview.Configuration.class.getResource("").getPath()).getParentFile().getAbsolutePath() + "/nic.properties");
+            properties.load(new InputStreamReader(new FileInputStream(confFile)));
             nicerTableName = properties.getProperty("nicerTableName");
-            if (nicerTableName == null) {
+	        if (nicerTableName == null) {
                 nicerTableName = "nicer";
             }
             pictureRootPath = properties.getProperty("pictureRootPath");
@@ -26,13 +26,13 @@ public class Configuration {
             }
             pictureKind = properties.getProperty("pictureKind");
             if (pictureKind == null) {
-                pictureKind = "jpg";
+                pictureKind = "jpg;png;gif";
             }
         } catch (IOException e) {
             e.printStackTrace();
             nicerTableName = "nicer";
             pictureRootPath = "D:/照片&视频";
-            pictureKind = "jpg";
+            pictureKind = "jpg;png;gif";
         }
     }
 

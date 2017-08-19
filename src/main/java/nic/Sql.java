@@ -23,7 +23,6 @@ public class Sql {
         try {
             Properties properties = new Properties();
             File confFile = new File(new File(JDBCMethod.class.getResource("").getPath()).getParentFile().getAbsolutePath() + "/nicSql.properties");
-//			System.out.println(confFile.getAbsolutePath());
             properties.load(new FileInputStream(confFile));
             dataSource = DruidDataSourceFactory.createDataSource(properties);
         } catch (Exception e) {

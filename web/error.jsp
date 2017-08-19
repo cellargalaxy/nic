@@ -16,9 +16,10 @@
 <aside class="login wrapper" >
 	<div class="login frame">
 		<form >
-			<img class="errorPic" src="image/error.png">
+			<img class="errorPic" src="/nic/image/error.png">
 			<p><br></p>
-			<p  ><a class="errorText" href="login" >${error}</a></p>
+			<p class="errorText">${error}</p>
+			<p><a class="errorText" href="/nic/login" >登录</a></p>
 		</form>
 	</div>
 </aside>

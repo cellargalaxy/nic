@@ -17,8 +17,8 @@ import java.io.IOException;
  */
 public class LoginServlet extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
-    private String successJsp = "/jsp/login.jsp";
-    private String failJsp = "/error.jsp";
+    private static final String successJsp = "/jsp/login.jsp";
+    private static final String failJsp = "/error.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
         try {
             Nicer nicer = Nic.getNic().findNicer(new Long(idString));
             if (nicer.getStatus() == nicer.getTempStatus()) {
-                req.setAttribute("error", "账号审核未通过!");
+                req.setAttribute("error", "账号审核未通过,请联系管理员");
                 req.getRequestDispatcher(failJsp).forward(req, resp);
             } else if (pw != null && nicer.getPassword().equals(MD5.encryption(pw))) {
                 HttpSession session = req.getSession();

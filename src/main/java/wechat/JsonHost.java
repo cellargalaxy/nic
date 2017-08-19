@@ -15,11 +15,7 @@ import java.util.LinkedList;
  * Created by 孵化种子 on 2017/8/6.
  */
 public class JsonHost {
-    private static final SimpleDateFormat SIMPLE_DATE_FORMAT=new SimpleDateFormat("yyyy-MM-dd HH");
-
-    public static void main(String[] args) {
-        System.out.println(jsonHostToken());
-    }
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT=new SimpleDateFormat("yyyy-MM-dd hh");
 
     public static String jsonHostToken(){
         return MD5.encryption(SIMPLE_DATE_FORMAT.format(new Date()));

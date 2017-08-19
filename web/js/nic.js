@@ -106,7 +106,7 @@ function turnRight(id, result) {
         alert("添加学号为空或者不合法！");
         return;
     }
-    if (result == null || result.length > 0 || isNaN(result) || (result != 0 && result != 1)) {
+    if (result == null || result.length > 0 || isNaN(result) || (result != 0 && result != 1 && result != 2)) {
         alert("选择为空或者不合法！");
         return;
     }

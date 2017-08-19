@@ -31,6 +31,7 @@ public class NetviewJsonServlet extends HttpServlet {
         String model = req.getParameter("model");
         String name = req.getParameter("name");
         JSONObject jsonObject = new JSONObject();
+        jsonObject.put("address", address);
         if (address != null && building != null && floor != null && model != null) {
             Netview netview = Netview.getNETVIEW();
             try {
@@ -38,7 +39,6 @@ public class NetviewJsonServlet extends HttpServlet {
             } catch (Exception e) {
                 jsonObject.put("result", false);
             }
-            jsonObject.put("address", address);
         } else {
             jsonObject.put("result", false);
         }
@@ -47,7 +47,6 @@ public class NetviewJsonServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         out.println(jsonObject);
         out.close();
-
     }
 
     /**

@@ -35,6 +35,20 @@ public class Nic {
             return false;
         }
     }
+    
+    public boolean turnAdminNicer(long id) {
+        Nicer nicer = Sql.findNicer(id);
+        if (nicer != null) {
+            nicer.setStatus(nicer.getAdminStatus());
+            boolean b = Sql.changeNicer(nicer);
+            if (b) {
+                LOGGER.info("提权管理员用户：" + id);
+            }
+            return b;
+        } else {
+            return false;
+        }
+    }
 
 
     public boolean addNicer(Map map) {

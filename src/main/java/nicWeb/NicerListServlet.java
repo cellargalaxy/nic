@@ -16,7 +16,7 @@ import java.util.LinkedList;
  * Created by cellargalaxy on 2017/5/3.
  */
 public class NicerListServlet extends HttpServlet {
-    private String jsp = "/jsp/nicerList.jsp";
+    private static final String jsp = "/jsp/nicerList.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,6 +45,14 @@ public class NicerListServlet extends HttpServlet {
                 }
             } else if (result == 1) {
                 if (Nic.getNic().turnRightNicer(id)) {
+                    jsonObject.put("result", true);
+                    jsonObject.put("info", "提交成功");
+                } else {
+                    jsonObject.put("result", false);
+                    jsonObject.put("info", "提交失败");
+                }
+            } else if (result == 2) {
+                if (Nic.getNic().turnAdminNicer(id)) {
                     jsonObject.put("result", true);
                     jsonObject.put("info", "提交成功");
                 } else {

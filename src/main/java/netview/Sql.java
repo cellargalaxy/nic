@@ -18,11 +18,6 @@ public class Sql {
 
     private static DataSource dataSource;
 
-    public static void main(String[] args) {
-        Host host = new Host("qq.com", "F", "321", "server", "腾讯");
-        System.out.println(addAddress(host));
-    }
-
     static {
         try {
             Properties properties = new Properties();

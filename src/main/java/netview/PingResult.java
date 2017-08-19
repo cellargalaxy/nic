@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 public class PingResult {
     private static final Pattern PATTERN = Pattern.compile(Configuration.getPingRegularly());
 
-    private Date date;
-    private int delay;
+    private final Date date;
+    private final int delay;
 
     public PingResult() {
         date = new Date();
@@ -19,8 +19,8 @@ public class PingResult {
     }
 
     public PingResult(String result) {
-        delay = regularlyDelay(result);
         date = new Date();
+        delay = regularlyDelay(result);
     }
 
     private int regularlyDelay(String string) {
@@ -41,16 +41,8 @@ public class PingResult {
     public Date getDate() {
         return date;
     }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
+    
     public int getDelay() {
         return delay;
-    }
-
-    public void setDelay(int delay) {
-        this.delay = delay;
     }
 }

@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by cellargalaxy on 2017/5/4.
  */
 public class ChangeNicerServlet extends HttpServlet {
-    private String jsp = "/jsp/changeNicer.jsp";
+    private static final String jsp = "/jsp/changeNicer.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

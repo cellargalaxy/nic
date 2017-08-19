@@ -16,7 +16,7 @@ import java.util.List;
  * Created by cellargalaxy on 2017/4/24.
  */
 public class NetviewServlet extends HttpServlet {
-    private String jsp = "/jsp/netview.jsp";
+    private static final String jsp = "/jsp/netview.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,11 +24,10 @@ public class NetviewServlet extends HttpServlet {
         String demandKey = req.getParameter("demandKey");
         if (demandKey == null) {
             LinkedList<Building> buildings = netview.createAllBuilding();
-            buildings.add(0, netview.createOutTimeBuilding());
+            buildings.addFirst(netview.createOutTimeBuilding());
             req.setAttribute("buildings", buildings);
         } else {
-            Building[] buildings = {netview.createDemandKeyBuilding(demandKey)};
-            req.setAttribute("buildings", buildings);
+            req.setAttribute("buildings", new Building[]{netview.createDemandKeyBuilding(demandKey)});
         }
         req.getRequestDispatcher(jsp).forward(req, resp);
     }
@@ -38,12 +37,12 @@ public class NetviewServlet extends HttpServlet {
         //获得磁盘文件条目工厂
         DiskFileItemFactory factory = new DiskFileItemFactory();
         //获取文件需要上传到的路径
-        String path = req.getRealPath("/upload");
+        String path=getServletContext().getRealPath("/upload");
         //设置存储室
         factory.setRepository(new File(path));
         //设置 缓存的大小，当上传文件的容量超过该缓存时，直接放到 暂时存储室
         factory.setSizeThreshold(1024 * 1024);
-        //高水平的API文件上传处理
+        //文件上传处理
         ServletFileUpload upload = new ServletFileUpload(factory);
 
         File ipFile = null;
@@ -58,7 +57,7 @@ public class NetviewServlet extends HttpServlet {
                     String filename = item.getName();
                     //索引到最后一个反斜杠
                     int start = filename.lastIndexOf("\\");
-                    //截取 上传文件的 字符串名字，加1是 去掉反斜杠，
+                    //截取 上传文件的 字符串名字，加1是 去掉反斜杠
                     filename = path + "/" + filename.substring(start + 1);
                     ipFile = new File(filename);
                     ipFile.getParentFile().mkdirs();
@@ -74,23 +73,26 @@ public class NetviewServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (inputStream != null) try {
-                inputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (inputStream != null) {
+	            try {
+		            inputStream.close();
+	            } catch (Exception e) {
+		            e.printStackTrace();
+	            }
             }
-            if (outputStream != null) try {
-                outputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (outputStream != null) {
+	            try {
+		            outputStream.close();
+	            } catch (Exception e) {
+		            e.printStackTrace();
+	            }
             }
         }
 
         Netview netview = Netview.getNETVIEW();
-        Building[] buildings = {netview.addHosts(ipFile)};
-        req.setAttribute("buildings", buildings);
+        req.setAttribute("buildings", new Building[]{netview.addHosts(ipFile)});
+        ipFile.delete();
         req.getRequestDispatcher(jsp).forward(req, resp);
-
     }
 
 

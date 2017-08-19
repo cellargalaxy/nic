@@ -19,7 +19,7 @@ public class Configuration {
         try {
             Properties properties = new Properties();
             File confFile = new File(new File(Configuration.class.getResource("").getPath()).getParentFile().getAbsolutePath() + "/netview.properties");
-            properties.load(new FileInputStream(confFile));
+            properties.load(new InputStreamReader(new FileInputStream(confFile)));
 
             ipTableName = properties.getProperty("ipTableName");
 

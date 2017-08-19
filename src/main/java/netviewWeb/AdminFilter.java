@@ -12,7 +12,7 @@ import java.io.IOException;
  * Created by cellargalaxy on 2017/5/5.
  */
 public class AdminFilter implements Filter {
-    private String errorJsp = "/error.jsp";
+    private static final String errorJsp = "/error.jsp";
     private FilterConfig config;
 
     public void init(FilterConfig filterConfig) throws ServletException {

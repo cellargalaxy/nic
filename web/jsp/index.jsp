@@ -12,12 +12,12 @@
     <script type="text/javascript" src="/nic/js/jquery.js"></script>
     <link rel="stylesheet" type="text/css" href="/nic/css/index.css">
     <script type="text/javascript">
-        setInterval('pictureWall()', 20000);
+        setInterval('picture()', 20000);
         function init() {
             document.body.style.backgroundImage = "url(/nic/image/nic.jpg)";
         }
-        function pictureWall() {
-            document.body.style.backgroundImage = "url(/nic/pictureWall?t=" + Math.random() + ")";
+        function picture() {
+            document.body.style.backgroundImage = "url(/nic/picture?index=" + Math.random() + ")";
         }
     </script>
 </head>
@@ -31,11 +31,11 @@
     <p><a href="netview">交换机监控</a></p>
     <p><a href="nicerList">队员查看</a></p>
     <p><a href="pictureWall">图片墙</a></p>
+    <p><a href="onDuty/uploadClassSchedule">上传课程表</a></p>
+    <p><a target= "_blank" href="ftp://202.116.150.40">FTP文件夹</a></p>
 
     <p onclick="alert('跟多功能的建设期待小伙伴们积极参与')">电影台</p>
-    <p onclick="alert('跟多功能的建设期待小伙伴们积极参与')">FTP文件夹</p>
-    <p onclick="alert('跟多功能的建设期待小伙伴们积极参与')">在线上传课表生成值班表</p>
-    <p onclick="pictureWall()">点我改变背景图片</p>
+    <p onclick="picture()">点我改变背景图片</p>
     <br>
 
 </div>

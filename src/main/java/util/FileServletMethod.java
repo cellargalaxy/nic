@@ -25,7 +25,6 @@ public class FileServletMethod {
             byte[] bs = new byte[1024 * 10];
             while ((len = inputStream.read(bs)) != -1) {
                 outputStream.write(bs, 0, len);
-                outputStream.flush();
             }
         } catch (Exception e) {
             e.printStackTrace();
