@@ -1,4 +1,4 @@
-html,body {
+html, body {
     background-image: url('/nic/image/nic.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
@@ -7,107 +7,97 @@ html,body {
     /*background-color: yellow;*/
 }
 
-/*不知道干嘛的，反正删了会gg*/
-form p > * {
-    display: inline-block;
-    vertical-align: middle;
+.half {
+    float: left;
+    position: relative;
+    width: 50%;
+    min-width: 5em;
+    height: 100%;
+    /*background-color: rgba(222, 111, 222, 0.5);*/
 }
-
 
 .login {
-    display: table;
-    border: none;
-}
-
-/*半页*/
-.wrapper {
-    width: 50%;
-    height: 100%;
-    min-width: 5em;
-    /*background-color: rgba(222, 111, 222, 0.5);*/
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/*登录的那个框*/
-.frame {
-    height: 45%;
+    float: left;
+    position: relative;
     width: 60%;
-    /*background-color: rgba(123, 255, 255, 0.5);*/
+    height: auto;
+    margin-top: 30%;
+    margin-bottom: 30%;
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
     border-radius: 5%;
+    border: 0.3em solid rgba(172, 204, 119, 1);
+    /*background-color: rgba(4, 111, 222, 0.5);*/
+}
+
+.line {
+    width: auto;
+    height: auto;
+    margin-top: 1em;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 0.3em solid rgba(172, 204, 119 , 1);
+    /*background-color: rgba(4, 111, 222, 0.5);*/
 }
 
 /*头像*/
-.avatar{
-    /*width:20%;*/
-    height: 20%;
-    line-height: 20%;
-    text-align: center;
-    /*background-color: rgba(172, 204, 119 , 1);*/
-    border: 0.25em solid rgba(172, 204, 119 , 1);
+.avatar {
+    width: 5em;
     border-radius: 100%;
-}
-
-/*文本框绿头*/
-.label_input {
-    width: 20%;
-    height: 12%;
-    line-height: 20%;
     text-align: center;
-    background-color: rgba(172, 204, 119, 0.8);
+    border: 0.25em solid rgba(172, 204, 119, 1);
 }
 
 /*账号密码图片*/
-.labelPicture{
-    /*width: 100%;*/
-    height: 80%;
+.labelPicture {
+    float: left;
+    width: 2.5em;
+    height: 2.5em;
+    margin-top: 1em;
+    background-color: rgba(172, 204, 119, 1);
 }
 
 /*文本框*/
 .text_field {
-    width: 80%;
-    height: 12%;
+    float: left;
+    width: 40%;
+    height: 3em;
+    margin-top: 1em;
     color: darkgreen;
     border: double;
     border-width: 0.5em;
-    border-color: rgba(172, 204, 119 , 1);
+    border-color: rgba(172, 204, 119, 1);
 }
 
 /*登录按钮*/
 .btn_login {
-    font-size: 100%;
-    font-family: 微软雅黑;
-    width: 100%;
-    height: 12%;
-    line-height: 15%;
-    text-align: center;
-    color: darkgreen;
-    background-color: rgba(172, 204, 119 , 1);
+    width: 40%;
+    height: 2.5em;
     border: 0;
-    /*float: left;*/
+    text-align: center;
+    line-height: 15%;
+    font-family: 微软雅黑;
+    font-size: 100%;
+    color: darkgreen;
+    background-color: rgba(172, 204, 119, 1);
 }
 
 /*忘记密码效果*/
-#forget_pwd {
-    font-size: 1em;
-    color: rgba(172, 204, 119 , 1);
-    text-decoration: none;
-    position: relative;
+.signUp {
     float: left;
+    position: relative;
+    margin-left: 30%;
+    font-size: 1em;
+    font-family: 微软雅黑;
+    color: rgba(172, 204, 119, 1);
+    text-decoration: none;
     text-decoration: underline;
 
-}
-
-/*忘记密码显示*/
-#forget_pwd:hover {
-    color: blue;
-    text-decoration: underline;
 }
 
 

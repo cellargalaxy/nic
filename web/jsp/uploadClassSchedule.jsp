@@ -9,15 +9,37 @@
 <html>
 <head>
     <title>上传课程表</title>
+    <link rel="stylesheet" type="text/css" href="/nic/css/error.css">
 </head>
 <body>
-<form action="" method="post" enctype="multipart/form-data">
-    上传课程表（xls）：
-    学年：<input type="number" name="year" min="2017" required/>
-    学期：<input type="number" name="semester" min="1" max="2" required/>
-    课程表：<input type="file" name="classSchedule" required/>
-    <input type="submit" value="上传"/>
-    <a target= "_blank" href="#">如何得到上传的课程表？</a>
-</form>
+<div class="half">
+    <div class="login">
+        <form action="" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td><a href="/nic">首页</a></td>
+                    <td>上传课程表（xls）：</td>
+                </tr>
+                <tr>
+                    <td>学年：</td>
+                    <td><input type="number" name="year" min="2017" required/></td>
+                </tr>
+                <tr>
+                    <td>学期：</td>
+                    <td><input type="number" name="semester" min="1" max="2" required/></td>
+                </tr>
+                <tr>
+                    <td>课程表：</td>
+                    <td><input type="file" name="classSchedule" required/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="上传"/> <a target= "_blank" href="/nic/html/uploadClassSchedule.html">如何得到上传的课程表？</a></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>

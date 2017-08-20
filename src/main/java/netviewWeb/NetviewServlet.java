@@ -16,7 +16,7 @@ import java.util.List;
  * Created by cellargalaxy on 2017/4/24.
  */
 public class NetviewServlet extends HttpServlet {
-    private static final String jsp = "/jsp/netview.jsp";
+    private static final String JSP = "/jsp/netview.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,7 +29,7 @@ public class NetviewServlet extends HttpServlet {
         } else {
             req.setAttribute("buildings", new Building[]{netview.createDemandKeyBuilding(demandKey)});
         }
-        req.getRequestDispatcher(jsp).forward(req, resp);
+        req.getRequestDispatcher(JSP).forward(req, resp);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class NetviewServlet extends HttpServlet {
         Netview netview = Netview.getNETVIEW();
         req.setAttribute("buildings", new Building[]{netview.addHosts(ipFile)});
         ipFile.delete();
-        req.getRequestDispatcher(jsp).forward(req, resp);
+        req.getRequestDispatcher(JSP).forward(req, resp);
     }
 
 

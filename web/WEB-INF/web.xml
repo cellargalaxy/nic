@@ -21,7 +21,7 @@
         </init-param>
         <init-param>
             <param-name>disableLoginFilter</param-name><!-- Y:过滤无效 -->
-            <param-value>Y</param-value>
+            <param-value>N</param-value>
         </init-param>
         <init-param>
             <param-name>separator</param-name><!-- 不进行过滤路径的分割符 -->
@@ -29,7 +29,7 @@
         </init-param>
         <init-param>
             <param-name>exceptionPath</param-name><!-- 不进行过滤 -->
-            <param-value>/login;/signUp;/wx;/nic/css;/nic/image;/nic/js</param-value>
+            <param-value>/nic/login;/nic/signUp;/nic/wx;/nic/css;/nic/image;/nic/js;/nic/html</param-value>
         </init-param>
     </filter>
     <filter-mapping>
@@ -163,6 +163,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>createClassScheduleServlet</servlet-name>
+        <servlet-class>onDutyWeb.CreateClassScheduleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>createClassScheduleServlet</servlet-name>
+        <url-pattern>/onDuty/createClassSchedule</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>jsonHostServlet</servlet-name>
         <servlet-class>wechatWeb.JsonHostServlet</servlet-class>
     </servlet>
@@ -178,6 +187,15 @@
     <servlet-mapping>
         <servlet-name>wxNetviewServlet</servlet-name>
         <url-pattern>/wx/netview</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>statusChangeInfoServlet</servlet-name>
+        <servlet-class>wechatWeb.StatusChangeInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>statusChangeInfoServlet</servlet-name>
+        <url-pattern>/wx/statusChangeInfo</url-pattern>
     </servlet-mapping>
 
     <!-- ServletEnd============================================================================================= -->

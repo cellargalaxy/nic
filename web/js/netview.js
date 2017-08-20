@@ -30,7 +30,7 @@ function addHost() {
         alert("请输入机型！");
         return;
     }
-    if (model.index('-')!=-1) {
+    if (model.index('-') != -1) {
         alert("如果你输入的机型为S2352-1的形式，建议将‘-’后面的‘1’填入到‘名字’里");
         return;
     }

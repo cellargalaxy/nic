@@ -17,7 +17,7 @@ import java.util.TreeMap;
 public class Netview {
 	private static final Logger LOGGER = Logger.getLogger(Netview.class.getName());
 	private static final Netview NETVIEW = new Netview();
-	private static final DateFormat DATE_FORMAT=new SimpleDateFormat("hh:mm:ss");
+	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("hh:mm:ss");
 	
 	private final LinkedList<Host> hosts;
 	private final PingThread pingThread;
@@ -156,19 +156,19 @@ public class Netview {
 		return hs;
 	}
 	
-	public void clearChangeStatusInfo(){
+	public void clearChangeStatusInfo() {
 		changeStatusInfo.setLength(0);
 	}
 	
 	protected void dealChangeStatus(Host host) {
-		if (changeStatusInfo.length() > 1000) {
+		if (changeStatusInfo.length() > 10000) {
 			clearChangeStatusInfo();
 		}
 		
 		if (host.isConn()) {
-			changeStatusInfo.append("通:" + DATE_FORMAT.format(host.getDate()) + host.getBuilding() + "-" + host.getFloor() + "-" + host.getModel());
+			changeStatusInfo.append("通 " + DATE_FORMAT.format(host.getDate()) + " " + host.getBuilding() + "-" + host.getFloor() + "-" + host.getModel());
 		} else {
-			changeStatusInfo.append("挂:" + DATE_FORMAT.format(host.getDate()) + host.getBuilding() + "-" + host.getFloor() + "-" + host.getModel());
+			changeStatusInfo.append("挂 " + DATE_FORMAT.format(host.getDate()) + " " + host.getBuilding() + "-" + host.getFloor() + "-" + host.getModel());
 		}
 		if (host.getName() != null && host.getName().length() > 0) {
 			changeStatusInfo.append("-" + host.getName());

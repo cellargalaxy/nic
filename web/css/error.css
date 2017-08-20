@@ -1,59 +1,59 @@
-html,body {
+html, body {
     background-image: url('/nic/image/nic.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
     margin: 0;
     padding: 0;
-    /*background-color: yellow;*/
+    background-color: yellow;
 }
 
-/*不知道干嘛的，反正删了会gg*/
-form p > * {
-    display: inline-block;
-    vertical-align: middle;
+.half {
+    float: left;
+    position: relative;
+    width: 50%;
+    min-width: 5em;
+    height: 100%;
+    /*background-color: rgba(222, 111, 222, 0.5);*/
 }
-
 
 .login {
-    display: table;
-    border: none;
-}
-
-/*半页*/
-.wrapper {
-    width: 50%;
-    height: 100%;
-    min-width: 5em;
-    /*background-color: rgba(222, 111, 222, 0.5);*/
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/*登录的那个框*/
-.frame {
-    height: 45%;
+    float: left;
+    position: relative;
     width: 60%;
-    /*background-color: rgba(123, 255, 255, 0.5);*/
+    height: auto;
+    margin-top: 30%;
+    margin-bottom: 30%;
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
     border-radius: 5%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 0.3em solid rgba(172, 204, 119 , 1);
+    border: 0.3em solid rgba(172, 204, 119, 1);
+    /*background-color: rgba(4, 111, 222, 0.5);*/
 }
 
-.errorPic{
-    height: 30%;
-    line-height: 30%;
+.line {
+    float: left;
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-top: 1em;
     text-align: center;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*background-color: rgba(4, 111, 222, 0.5);*/
 }
 
-
+.errorPic {
+    height: 10em;
+}
 
 .errorText {
-    font-size: 100%;
+    font-size: 1.5em;
     font-family: 微软雅黑;
-    color: rgba(172, 204, 119 , 1);
+    color: rgba(172, 204, 119, 1);
 }
 

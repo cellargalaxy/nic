@@ -13,25 +13,28 @@
 </head>
 <body>
 
-<aside class="login wrapper">
-    <div class="login frame">
+<div class="half">
+    <div class="login">
         <form method="post" action="">
-            <img class="avatar" src="image/avatar.png">
-            <p><label class="label_input"><img class="labelPicture" src="image/id.png"></label><input class="text_field"
-                                                                                                      type="text"
-                                                                                                      name="id"
-                                                                                                      required/></p>
-            <p><label class="label_input"><img class="labelPicture" src="image/pw.png"></label><input class="text_field"
-                                                                                                      type="password"
-                                                                                                      name="pw"
-                                                                                                      required/></p>
+            <p><img class="avatar" src="image/avatar.png"></p>
 
-            <input type="submit" class="btn_login" value="登&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp录"/>
-            <p><a id="forget_pwd" href="signUp">注册</a></p>
+            <div class="line">
+                <img class="labelPicture" src="image/id.png">
+                <input class="text_field" type="text" name="id" required/>
+            </div>
+
+            <div class="line">
+                <img class="labelPicture" src="image/pw.png">
+                <input class="text_field" type="password" name="pw" required/>
+            </div>
+
+            <div class="line">
+                <input type="submit" class="btn_login" value="登&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp录"/>
+            </div>
+            <p><a class="signUp" href="signUp">注册</a></p>
         </form>
     </div>
-</aside>
-
+</div>
 
 </body>
 </html>

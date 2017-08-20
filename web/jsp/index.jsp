@@ -32,6 +32,7 @@
     <p><a href="nicerList">队员查看</a></p>
     <p><a href="pictureWall">图片墙</a></p>
     <p><a href="onDuty/uploadClassSchedule">上传课程表</a></p>
+    <p><a href="onDuty/createClassSchedule">生成课余空闲表</a></p>
     <p><a target= "_blank" href="ftp://202.116.150.40">FTP文件夹</a></p>
 
     <p onclick="alert('跟多功能的建设期待小伙伴们积极参与')">电影台</p>

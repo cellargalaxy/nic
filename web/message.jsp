@@ -12,15 +12,13 @@
     <link rel="stylesheet" type="text/css" href="/nic/css/error.css">
 </head>
 <body>
-<aside class="login wrapper" >
-    <div class="login frame">
-        <form >
-            <img class="errorPic" src="/nic/image/error.png">
-            <p><br></p>
-            <p class="errorText">${message}</p>
-            <p><a class="errorText" href="/nic">首页</a></p>
-        </form>
+<div class="half">
+    <div class="login">
+        <div class="line"><img class="errorPic" src="/nic/image/info.jpg"></div>
+        <div class="line"><p class="errorText">${message}</p></div>
+        <div class="line"><a class="errorText" href="${url}">返回</a></div>
     </div>
-</aside>
+</div>
+
 </body>
 </html>
