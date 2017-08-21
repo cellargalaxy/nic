@@ -16,7 +16,7 @@ public class ClassScheduleFactory {
 	private static final String SEPARATOR1 = ",";
 	private static final String SEPARATOR2 = "-";
 	private static final Pattern CLASS_PATTERN = Pattern.compile("\\d+");
-	private static final Pattern NEW_WEEK_PATTERN = Pattern.compile("[\\d\\-,]+");
+	private static final Pattern NEW_WEEK_PATTERN = Pattern.compile("[\\d\\-,]+$");
 	private static final Pattern OLD_WEEK_PATTERN = Pattern.compile("\\{第[\\d\\-,]+周}");
 	//                                   -1,1,2,3,4,5,6,7,8,9,10,11,12,13,14
 	private static final int[] clazzs = {-1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5, 5, 5};

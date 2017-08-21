@@ -1,13 +1,12 @@
 package nic;
 
-import javax.servlet.http.HttpServlet;
 import java.io.File;
 import java.util.ArrayList;
 
 /**
  * Created by cellargalaxy on 2017/5/4.
  */
-public class PicturePool extends HttpServlet {
+public class PicturePool{
 	private static final String pictureKind = Configuration.getPictureKind().toLowerCase();
 	private static final File root = new File(Configuration.getPictureRootPath());
 	private static final ArrayList<File> pictures = new ArrayList<File>();

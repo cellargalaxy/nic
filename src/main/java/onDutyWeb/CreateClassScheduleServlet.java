@@ -52,7 +52,7 @@ public class CreateClassScheduleServlet extends HttpServlet {
 		String nicerId = req.getParameter("nicerId");
 		
 		if (nicerId != null) {
-			File file = new File(getServletContext().getRealPath("/upload") + "/" + year + semester + "/" + nicerId);
+			File file = new File(getServletContext().getRealPath("/upload") + "/classSchedule/" + year + semester + "/" + nicerId);
 			FileServletMethod.sendFile(resp, file, true, file.getName() + ".xls");
 			return;
 		}
