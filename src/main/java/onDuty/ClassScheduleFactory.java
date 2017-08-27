@@ -27,7 +27,7 @@ public class ClassScheduleFactory {
 			workbook = Workbook.getWorkbook(ClassScheduleFile);
 			Sheet sheet = workbook.getSheet(0);
 			for (int i = 0; i < 5; i++) {
-				if (sheet.getRow(i).length==0) {
+				if (sheet.getRow(i).length == 0) {
 					continue;
 				}
 				if (sheet.getRow(i)[0].getContents().trim().equals(OLD_CLASS_SCHEDULE_MARK)) {
