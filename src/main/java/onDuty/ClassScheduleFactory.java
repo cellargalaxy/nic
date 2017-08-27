@@ -46,14 +46,14 @@ public class ClassScheduleFactory {
 		int clazz = -1;
 		for (int i = 1; i < sheet.getRows(); i++) {
 			Cell[] cells = sheet.getRow(i);
-			if (cells.length==0) {
+			if (cells.length == 0) {
 				continue;
 			}
 			Matcher classMatcher = CLASS_PATTERN.matcher(cells[1].getContents());
 			if (classMatcher.find()) {
 				clazz = clazzs[new Integer(classMatcher.group())];
 			}
-			for (int day = 2; day < cells.length&&day<=ClassSchedule.DAY_COUNT; day++) {
+			for (int day = 2; day < cells.length && day <= ClassSchedule.DAY_COUNT; day++) {
 				Matcher weekMatcher = OLD_WEEK_PATTERN.matcher(cells[day].getContents());
 				if (weekMatcher.find()) {
 					String weekString = weekMatcher.group();
@@ -75,17 +75,17 @@ public class ClassScheduleFactory {
 	
 	private static ClassSchedule excel2NewClassSchedule(Sheet sheet) {
 		ClassSchedule classSchedule = new ClassSchedule();
-		int clazz=-1;
+		int clazz = -1;
 		for (int i = 1; i < sheet.getRows(); i++) {
 			Cell[] cells = sheet.getRow(i);
-			if (cells.length==0) {
+			if (cells.length == 0) {
 				continue;
 			}
 			Matcher classMatcher = CLASS_PATTERN.matcher(cells[0].getContents());
 			if (classMatcher.find()) {
 				clazz = clazzs[new Integer(classMatcher.group())];
 			}
-			for (int day = 1; day < cells.length&&day<=ClassSchedule.DAY_COUNT; day++) {
+			for (int day = 1; day < cells.length && day <= ClassSchedule.DAY_COUNT; day++) {
 				Matcher weekMatcher = NEW_WEEK_PATTERN.matcher(cells[day].getContents());
 				if (weekMatcher.find()) {
 					String[] weekStrings = weekMatcher.group().substring(1).split(SEPARATOR1);
