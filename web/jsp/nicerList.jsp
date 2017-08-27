@@ -114,7 +114,7 @@
                     </td>
                 </form>
 
-                <td><input type="button" value="非管理员" onclick="turnRight(${nicer.id},1)"></td>
+                <td><input type="button" value="用户" onclick="turnRight(${nicer.id},1)"></td>
                 <td><input type="button" value="管理员" onclick="turnRight(${nicer.id},2)"></td>
                 <td><input type="button" value="删除" onclick="turnRight(${nicer.id},0)"></td>
             </c:if>
