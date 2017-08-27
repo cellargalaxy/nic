@@ -26,11 +26,17 @@ public class ClassScheduleFactory {
 		try {
 			workbook = Workbook.getWorkbook(ClassScheduleFile);
 			Sheet sheet = workbook.getSheet(0);
-			if (sheet.getRow(0)[0].getContents().trim().equals(OLD_CLASS_SCHEDULE_MARK)) {
-				return excel2OldClassSchedule(sheet);
-			} else {
-				return excel2NewClassSchedule(sheet);
+			for (int i = 0; i < 5; i++) {
+				if (sheet.getRow(i).length==0) {
+					continue;
+				}
+				if (sheet.getRow(i)[0].getContents().trim().equals(OLD_CLASS_SCHEDULE_MARK)) {
+					return excel2OldClassSchedule(sheet);
+				} else {
+					return excel2NewClassSchedule(sheet);
+				}
 			}
+			return null;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
