@@ -26,7 +26,7 @@
         </tr>
         <tr class="textTr">
             <td>学号：</td>
-            <td><input type="text" name="id" placeholder="3115001234"></td>
+            <td><input type="number" name="id" placeholder="3115001234"></td>
         </tr>
         <tr class="textTr">
             <td>名字：</td>
@@ -42,7 +42,7 @@
         </tr>
         <tr class="textTr">
             <td>年级：</td>
-            <td><input type="text" name="grade" placeholder="15"></td>
+            <td><input type="number" name="grade" placeholder="15"></td>
         </tr>
         <tr class="textTr">
             <td>专业班级：</td>
@@ -50,15 +50,15 @@
         </tr>
         <tr class="textTr">
             <td>手机：</td>
-            <td><input type="text" name="phone" placeholder="13612341234"></td>
+            <td><input type="number" name="phone" placeholder="13612341234"></td>
         </tr>
         <tr class="textTr">
             <td>短号：</td>
-            <td><input type="text" name="shortPhone" placeholder="选填"></td>
+            <td><input type="number" name="shortPhone" placeholder="选填"></td>
         </tr>
         <tr class="textTr">
             <td>QQ：</td>
-            <td><input type="text" name="qq" placeholder="选填"></td>
+            <td><input type="number" name="qq" placeholder="选填"></td>
         </tr>
         <tr class="textTr">
             <td>出生：</td>

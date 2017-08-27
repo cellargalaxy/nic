@@ -61,9 +61,11 @@ public class Netview {
 		return addHost(host);
 	}
 	
-	private synchronized boolean addHost(Host host) {
+	private boolean addHost(Host host) {
 		if (Sql.addAddress(host)) {
-			hosts.add(host);
+			synchronized (hosts){
+				hosts.add(host);
+			}
 			LOGGER.info("添加一个主机; address:" + host.getAddress() + " 地址:" + host.getBuilding() + "-" + host.getFloor() + "-" + host.getModel() + "-" + host.getName());
 			return true;
 		} else {
@@ -77,7 +79,7 @@ public class Netview {
 			return new Building("文件格式异常，添加失败！");
 		} else {
 			Building building = new Building("下列Host添加失败");
-			synchronized (this) {
+			synchronized (hosts) {
 				for (Host host : hosts) {
 					if (!addHost(host)) {
 						building.addHost(host);
@@ -89,95 +91,111 @@ public class Netview {
 	}
 	
 	
-	public synchronized boolean deleteHost(String address) {
-		if (Sql.delleteAddress(address)) {
-			Iterator<Host> iterator = hosts.iterator();
-			while (iterator.hasNext()) {
-				if (iterator.next().getAddress().equals(address)) {
-					iterator.remove();
-					LOGGER.info("删除主机：" + address);
-					return true;
+	public boolean deleteHost(String address) {
+		synchronized (hosts){
+			if (Sql.delleteAddress(address)) {
+				Iterator<Host> iterator = hosts.iterator();
+				while (iterator.hasNext()) {
+					if (iterator.next().getAddress().equals(address)) {
+						iterator.remove();
+						LOGGER.info("删除主机：" + address);
+						return true;
+					}
 				}
+				return true;
+			} else {
+				return false;
 			}
-			return true;
-		} else {
-			return false;
 		}
 	}
 	
-	public synchronized Building createOutTimeBuilding() {
+	public Building createOutTimeBuilding() {
 		Building building = new Building("超时");
-		for (Host host : hosts) {
-			if (!host.isConn()) {
-				building.addHost(host);
-			}
-		}
-		return building;
-	}
-	
-	public synchronized Building createDemandKeyBuilding(String demandKey) {
-		Building building = new Building("查询：" + demandKey);
-		for (Host host : hosts) {
-			if (host.getAddress().contains(demandKey) || host.getBuilding().contains(demandKey) ||
-					host.getFloor().contains(demandKey) || host.getModel().contains(demandKey) ||
-					demandKey.contains(host.getAddress()) || demandKey.contains(host.getBuilding()) ||
-					demandKey.contains(host.getFloor()) || demandKey.contains(host.getModel())) {
-				building.addHost(host);
-			}
-		}
-		return building;
-	}
-	
-	
-	public synchronized LinkedList<Building> createAllBuilding() {
-		LinkedList<Building> buildings = new LinkedList<Building>();
-		main:
-		for (Host host : hosts) {
-			for (Building building : buildings) {
-				if (building.getBuildingName().equals(host.getBuilding().toUpperCase())) {
+		synchronized (hosts){
+			for (Host host : hosts) {
+				if (!host.isConn()) {
 					building.addHost(host);
-					continue main;
 				}
 			}
-			Building building = new Building(host.getBuilding().toUpperCase());
-			building.addHost(host);
-			buildings.add(building);
+		}
+		return building;
+	}
+	
+	public Building createDemandKeyBuilding(String demandKey) {
+		Building building = new Building("查询：" + demandKey);
+		synchronized (hosts){
+			for (Host host : hosts) {
+				if (host.getAddress().contains(demandKey) || host.getBuilding().contains(demandKey) ||
+						host.getFloor().contains(demandKey) || host.getModel().contains(demandKey) ||
+						demandKey.contains(host.getAddress()) || demandKey.contains(host.getBuilding()) ||
+						demandKey.contains(host.getFloor()) || demandKey.contains(host.getModel())) {
+					building.addHost(host);
+				}
+			}
+		}
+		return building;
+	}
+	
+	
+	public LinkedList<Building> createAllBuilding() {
+		LinkedList<Building> buildings = new LinkedList<Building>();
+		synchronized (hosts){
+			main:
+			for (Host host : hosts) {
+				for (Building building : buildings) {
+					if (building.getBuildingName().equals(host.getBuilding().toUpperCase())) {
+						building.addHost(host);
+						continue main;
+					}
+				}
+				Building building = new Building(host.getBuilding().toUpperCase());
+				building.addHost(host);
+				buildings.add(building);
+			}
 		}
 		return buildings;
 	}
 	
-	public synchronized Host[] createAddresses() {
-		Host[] hs = new Host[hosts.size()];
-		int i = 0;
-		for (Host host : hosts) {
-			hs[i] = host;
-			i++;
+	public Host[] createAddresses() {
+		synchronized (hosts){
+			Host[] hs = new Host[hosts.size()];
+			int i = 0;
+			for (Host host : hosts) {
+				hs[i] = host;
+				i++;
+			}
+			return hs;
 		}
-		return hs;
 	}
 	
 	public void clearChangeStatusInfo() {
-		changeStatusInfo.setLength(0);
+		synchronized (changeStatusInfo){
+			changeStatusInfo.setLength(0);
+		}
 	}
 	
 	protected void dealChangeStatus(Host host) {
-		if (changeStatusInfo.length() > 10000) {
-			clearChangeStatusInfo();
+		synchronized (changeStatusInfo){
+			if (changeStatusInfo.length() > 10000) {
+				clearChangeStatusInfo();
+			}
+			
+			if (host.isConn()) {
+				changeStatusInfo.append("通 " + DATE_FORMAT.format(host.getDate()) + " " + host.getBuilding() + "-" + host.getFloor() + "-" + host.getModel());
+			} else {
+				changeStatusInfo.append("挂 " + DATE_FORMAT.format(host.getDate()) + " " + host.getBuilding() + "-" + host.getFloor() + "-" + host.getModel());
+			}
+			if (host.getName() != null && host.getName().length() > 0) {
+				changeStatusInfo.append("-" + host.getName());
+			}
+			changeStatusInfo.append("\r\n");
 		}
-		
-		if (host.isConn()) {
-			changeStatusInfo.append("通 " + DATE_FORMAT.format(host.getDate()) + " " + host.getBuilding() + "-" + host.getFloor() + "-" + host.getModel());
-		} else {
-			changeStatusInfo.append("挂 " + DATE_FORMAT.format(host.getDate()) + " " + host.getBuilding() + "-" + host.getFloor() + "-" + host.getModel());
-		}
-		if (host.getName() != null && host.getName().length() > 0) {
-			changeStatusInfo.append("-" + host.getName());
-		}
-		changeStatusInfo.append("\r\n");
 		LOGGER.info("是否连通：" + host.isConn() + " address:" + host.getAddress() + " 地址:" + host.getBuilding() + "-" + host.getFloor() + "-" + host.getModel() + "-" + host.getName());
 	}
 	
 	public StringBuffer getChangeStatusInfo() {
-		return changeStatusInfo;
+		synchronized (changeStatusInfo){
+			return changeStatusInfo;
+		}
 	}
 }

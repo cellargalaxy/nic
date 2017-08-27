@@ -16,7 +16,7 @@ public class ClassScheduleFactory {
 	private static final String SEPARATOR1 = ",";
 	private static final String SEPARATOR2 = "-";
 	private static final Pattern CLASS_PATTERN = Pattern.compile("\\d+");
-	private static final Pattern NEW_WEEK_PATTERN = Pattern.compile("[\\d\\-,]+$");
+	private static final Pattern NEW_WEEK_PATTERN = Pattern.compile("★[\\d\\-,]+$");
 	private static final Pattern OLD_WEEK_PATTERN = Pattern.compile("\\{第[\\d\\-,]+周}");
 	//                                   -1,1,2,3,4,5,6,7,8,9,10,11,12,13,14
 	private static final int[] clazzs = {-1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5, 5, 5};
@@ -46,11 +46,14 @@ public class ClassScheduleFactory {
 		int clazz = -1;
 		for (int i = 1; i < sheet.getRows(); i++) {
 			Cell[] cells = sheet.getRow(i);
+			if (cells.length==0) {
+				continue;
+			}
 			Matcher classMatcher = CLASS_PATTERN.matcher(cells[1].getContents());
 			if (classMatcher.find()) {
 				clazz = clazzs[new Integer(classMatcher.group())];
 			}
-			for (int day = 2; day < cells.length; day++) {
+			for (int day = 2; day < cells.length&&day<=ClassSchedule.DAY_COUNT; day++) {
 				Matcher weekMatcher = OLD_WEEK_PATTERN.matcher(cells[day].getContents());
 				if (weekMatcher.find()) {
 					String weekString = weekMatcher.group();
@@ -72,26 +75,30 @@ public class ClassScheduleFactory {
 	
 	private static ClassSchedule excel2NewClassSchedule(Sheet sheet) {
 		ClassSchedule classSchedule = new ClassSchedule();
+		int clazz=-1;
 		for (int i = 1; i < sheet.getRows(); i++) {
 			Cell[] cells = sheet.getRow(i);
+			if (cells.length==0) {
+				continue;
+			}
 			Matcher classMatcher = CLASS_PATTERN.matcher(cells[0].getContents());
 			if (classMatcher.find()) {
-				int clazz = clazzs[new Integer(classMatcher.group())];
-				for (int day = 1; day < cells.length; day++) {
-					Matcher weekMatcher = NEW_WEEK_PATTERN.matcher(cells[day].getContents());
-					if (weekMatcher.find()) {
-						String[] weekStrings = weekMatcher.group().split(SEPARATOR1);
-						for (String weekString : weekStrings) {
-							if (weekString.contains(SEPARATOR2)) {
-								String[] strings = weekString.split(SEPARATOR2);
-								int startWeek = new Integer(strings[0]);
-								int endWeek = new Integer(strings[1]);
-								for (int week = startWeek; week <= endWeek; week++) {
-									classSchedule.setHasClass(week, day, clazz);
-								}
-							} else {
-								classSchedule.setHasClass(new Integer(weekString), day, clazz);
+				clazz = clazzs[new Integer(classMatcher.group())];
+			}
+			for (int day = 1; day < cells.length&&day<=ClassSchedule.DAY_COUNT; day++) {
+				Matcher weekMatcher = NEW_WEEK_PATTERN.matcher(cells[day].getContents());
+				if (weekMatcher.find()) {
+					String[] weekStrings = weekMatcher.group().substring(1).split(SEPARATOR1);
+					for (String weekString : weekStrings) {
+						if (weekString.contains(SEPARATOR2)) {
+							String[] strings = weekString.split(SEPARATOR2);
+							int startWeek = new Integer(strings[0]);
+							int endWeek = new Integer(strings[1]);
+							for (int week = startWeek; week <= endWeek; week++) {
+								classSchedule.setHasClass(week, day, clazz);
 							}
+						} else {
+							classSchedule.setHasClass(new Integer(weekString), day, clazz);
 						}
 					}
 				}

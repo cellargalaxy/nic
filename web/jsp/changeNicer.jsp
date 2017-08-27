@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <title>修改信息：${changeNicer.id}</title>
@@ -27,7 +28,7 @@
         </tr>
         <tr class="textTr">
             <td>学号：</td>
-            <td><input type="text" name="id" placeholder="" value="${changeNicer.id}" readonly></td>
+            <td><input type="number" name="id" placeholder="" value="${changeNicer.id}" readonly></td>
         </tr>
         <tr class="textTr">
             <td>姓名：</td>
@@ -50,7 +51,7 @@
         </tr>
         <tr class="textTr">
             <td>年级：</td>
-            <td><input type="text" name="grade" placeholder="15" value="${changeNicer.grade}"></td>
+            <td><input type="number" name="grade" placeholder="15" value="${changeNicer.grade}"></td>
         </tr>
         <tr class="textTr">
             <td>专业班级：</td>
@@ -58,19 +59,19 @@
         </tr>
         <tr class="textTr">
             <td>手机：</td>
-            <td><input type="text" name="phone" placeholder="13612341234" value="${changeNicer.phone}"></td>
+            <td><input type="number" name="phone" placeholder="13612341234" value="${changeNicer.phone}"></td>
         </tr>
         <tr class="textTr">
             <td>短号：</td>
-            <td><input type="text" name="shortPhone" placeholder="选填" value="${changeNicer.shortPhone}"></td>
+            <td><input type="number" name="shortPhone" placeholder="选填" value="${changeNicer.shortPhone}"></td>
         </tr>
         <tr class="textTr">
             <td>QQ：</td>
-            <td><input type="text" name="qq" placeholder="选填" value="${changeNicer.qq}"></td>
+            <td><input type="number" name="qq" placeholder="选填" value="${changeNicer.qq}"></td>
         </tr>
         <tr class="textTr">
             <td>出生：</td>
-            <td><input type="date" name="birthday" value="${changeNicer.birthday}"></td>
+            <td><input type="date" name="birthday" value="<fmt:formatDate value="${changeNicer.birthday}" pattern="yyyy-MM-dd"/>"></td>
         </tr>
         <tr class="textTr">
             <td>密码：</td>
@@ -84,7 +85,7 @@
         <c:if test="${youNicer!=null&&youNicer.status==youNicer.adminStatus}">
             <tr class="textTr">
                 <td>状态：</td>
-                <td><input type="text" name="status" placeholder="0:禁用;1:激活" value="${changeNicer.status}"></td>
+                <td><input type="number" name="status" placeholder="0:禁用;1:用户;2:管理员" value="${changeNicer.status}"></td>
             </tr>
         </c:if>
         <c:if test="${youNicer!=null&&youNicer.status!=youNicer.adminStatus}">

@@ -56,7 +56,7 @@ public class ChangeNicerServlet extends HttpServlet {
 			
 			HttpSession session = req.getSession();
 			Nicer youNicer = (Nicer) session.getAttribute("youNicer");
-			if (youNicer.getStatus() != youNicer.getAdminStatus() && !(youNicer.getId() + "").equals(map.get("id"))) {
+			if (youNicer.getStatus() != youNicer.getAdminStatus() && youNicer.getId() != new Long(map.get("id").toString())) {
 				jsonObject.put("result", false);
 				jsonObject.put("info", "非法修改个人信息，请重新登录！");
 			} else if (Nic.getNic().changeNicer(map)) {

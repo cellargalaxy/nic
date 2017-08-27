@@ -34,7 +34,7 @@
             <td>短号</td>
             <td>QQ</td>
             <td>出生</td>
-            <td>简介</td>
+            <td>介绍</td>
             <td>修改</td>
             <td>更权</td>
             <td>更权</td>
@@ -83,7 +83,7 @@
         <td>短号</td>
         <td>QQ</td>
         <td>出生</td>
-        <td>简介</td>
+        <td>介绍</td>
         <c:if test="${youNicer!=null&&youNicer.status==youNicer.adminStatus}">
             <td>状态</td>
             <td>修改</td>
