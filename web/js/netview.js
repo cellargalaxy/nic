@@ -2,6 +2,8 @@
  * Created by cellargalaxy on 2017/4/25.
  */
 
+
+
 function reload() {
     location.reload(true);
 }
@@ -30,8 +32,7 @@ function addHost() {
         alert("请输入机型！");
         return;
     }
-    if (model.index('-') != -1) {
-        alert("如果你输入的机型为S2352-1的形式，建议将‘-’后面的‘1’填入到‘名字’里");
+    if (model.indexOf('-') != -1 && !confirm("如果你输入的机型为S2352-1的形式，建议将‘-’后面的‘1’填入到‘名字’里.是否仍要添加?")) {
         return;
     }
     $.ajax({

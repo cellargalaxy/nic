@@ -12,7 +12,7 @@
     <script type="text/javascript" src="/nic/js/jquery.js"></script>
     <link rel="stylesheet" type="text/css" href="/nic/css/index.css">
     <script type="text/javascript">
-        setInterval('picture()', 20000);
+        //setInterval('picture()', 20000);
         function init() {
             document.body.style.backgroundImage = "url(/nic/image/nic.jpg)";
         }
@@ -34,8 +34,7 @@
     <p><a href="onDuty/uploadClassSchedule">上传课程表</a></p>
     <p><a href="onDuty/createClassSchedule">生成课余空闲表</a></p>
     <p><a target= "_blank" href="ftp://202.116.150.40">FTP文件夹</a></p>
-
-    <p onclick="alert('跟多功能的建设期待小伙伴们积极参与')">电影台</p>
+    <p><a target= "_blank" href="http://202.116.150.40:81">可道云(账号:nicer 密码:kodcloud)</a></p>
     <p onclick="picture()">点我改变背景图片</p>
     <br>
 
