@@ -15,6 +15,7 @@ import java.io.PrintWriter;
  * Created by 孵化种子 on 2017/8/6.
  */
 public class JsonHostServlet extends HttpServlet{
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String token=req.getParameter("token");
